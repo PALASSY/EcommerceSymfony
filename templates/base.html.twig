@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>
+			{% block title %}Welcome to Shangrila
+			{% endblock %}
+		</title>
+
+		{# CSS Bootstrap - before style CSS #}
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+		{# CSS minifié de bootswatch.com 
+		        <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">#}
+
+		{# CSS #}
+		<link rel="stylesheet" href="/css/style.css" type="text/css"> <link
+		rel="stylesheet" href="/css/app.css" type="text/css">
+
+		{# Google Fonts #}
+		<link
+		href="https://fonts.googleapis.com/css2?family=Lato&family=Lora:ital,wght@1,500&display=swap" rel="stylesheet">
+
+		{# JS #}
+		<script src="/js/jquery.compact.js"></script>
+
+		{# Fontawasome #}
+		<script src="https://kit.fontawesome.com/bb0dbb8b96.js" crossorigin="anonymous"></script>
+
+
+		{# Run `composer require symfony/webpack-encore-bundle`
+		           and uncomment the following Encore helpers to start using Symfony UX #}
+		{% block stylesheets %}
+			{#{{ encore_entry_link_tags('app') }}#}
+		{% endblock %}
+
+	</head>
+	<body>
+		{# header #}
+		{% include "inc/header.html.twig" %}
+
+		<!--Message flash : On va récupérer à l'aide 
+		        d'une boucle le label/messages dans le Global app
+		        et sa methode flashes -->
+		{% for label,messages in app.flashes %}
+			<div class="container">
+				{% for message in messages %}
+					<div class="alert alert-{{label}}">
+						<p>{{message|raw}}</p>
+					</div>
+				{% endfor %}
+			</div>
+		{% endfor %}
+
+
+		{% block heder %}{% endblock %}
+		{% block body %}{% endblock %}
+
+
+		{# footer #}
+		{% include "inc/footer.html.twig" %}
+
+		{% block javascripts %}
+			{#{{ encore_entry_script_tags('app') }}#}
+		{% endblock %}
+
+	</body>
+</html>
+

@@ -1,0 +1,128 @@
+/* GENERAL*/
+
+.container {
+  margin-top: 1.2em;
+}
+
+
+
+
+/* food/index.html.twig */
+
+#containerMenus{background-color:#B49C73 ;}
+#categoryMenu .btn.btn-light.mb-3{background-color: #383A40; font-weight: 600;font-size: 1.4rem; width: 6em;}
+#categoryMenu a{text-decoration: none; color: #fff;}
+
+.titreAd {
+  background-size: cover;
+  background-position: center center;
+  padding: 1em;
+  margin-left: 0;
+}
+.titreAd .container {
+  margin-top: 0;
+}
+.titreAd h1,
+.titreAd p {
+  color: #fff;
+}
+.overlay::before {
+  width: 110%;
+  height: 36.3%;
+  margin-top: 3.5em;
+  margin-left: -2em;
+  content: "";
+  background: url("../css/img/noise.png") repeat 0 0 rgba(0, 0, 0, 0.5);
+  top: 0;
+  position: absolute;
+}
+
+.overlaysmall::before {
+  width: 110%;
+  height: 27%;
+  margin-top: 11em;
+  margin-left: -2em;
+  content: "";
+  background: url("../css/img/noise.png") repeat 0 0 rgba(0, 0, 0, 0.5);
+  top: 0;
+  position: absolute;
+}
+
+.dataContainer{z-index: 10;}
+
+
+
+/* templates/inc/footer.html.twig */
+footer {
+  width: 100%;
+  color: #f3efef;
+  z-index: 10;
+  
+}
+
+
+/* templates/user/index.html.twig*/
+img.avatar{width: 128px;height: 128px;border-radius: 50%;}
+img.avatar-xs{max-width: 16px;max-height: 16px;}
+img.avatar-medium{max-width: 64px;max-height: 64px;}
+img.avatar-small{max-width: 32px;max-height: 32px;}
+img.avatar-big{max-width: 96px;max-height: 96px;}
+
+/*templates/inc/header.html.twig*/
+#accountDropdownlink{margin-left: 3em;}
+
+
+/*GENERAL*/
+
+a.btn,h1,p {
+    z-index: 10;
+    position: relative;
+}
+
+.hrefunderline a{text-decoration: none;}
+
+
+/*templates/booking/book.html.twig*/
+.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover{color:indianred!important ;text-decoration: line-through;}
+
+
+
+/* templates/ad/show.html */
+.fa-star:before{color: #F0A506;}
+
+
+
+/*templates/reservation/reservation.html.twig*/
+#reservation_date_time_minute, #reservation_date_time_hour{margin-top: 3em;}
+
+.reservationtable{text-decoration: none; color: #F0A506;}
+
+.imagereservationtable{height: 5em;}
+
+
+/*templates/reservation/show.html.twig*/
+.h4.text-center.resumereservation{padding: 0;}
+
+
+/* templates/food/shoOneFood.html.twig*/
+/*#dropdownshow{background-color: #B49C73;}*/
+.dropdown-menu.dropdownright.mt-2.show {
+    background-color: #B49C73;
+}
+
+
+
+.carousel-control-next, .carousel-control-prev{opacity: 0;}
+
+.carouselExampleIndicators button {
+    margin: 1em;
+    width: 4em;
+    height: 0.5em;
+    background-color: transparent;
+    border-radius: 2em;
+    border-color: black;}
+
+
+    /* templates/commande/index.html.twig */
+
+    
