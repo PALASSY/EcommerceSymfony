@@ -23,3 +23,6 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    #Attribuer un alias à cette Class pourque Symfony sache quelle implémentation d'interface à utiliser(sauvegarde des données dans BD)
+    Doctrine\Persistence\ObjectManager: "@doctrine.orm.default_entity_manager"

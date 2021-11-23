@@ -1,0 +1,37 @@
+{# Block pour rajouter une nouvelle image secondaire #}
+{% block _food_images_widget %}
+  <p>Ici vous pouvez ajouter des images supplementaires </p>
+  {# Permet d'avoir une value à chaque nouvelle image #}
+  <input type="hidden" id="widget-count" value="0">
+  <button class="btn btn-info" type="button" id="addcollection-image">Ajouter une image</button>
+  {{form_widget(form)}}
+{% endblock %}
+
+{# Block pour afficher les champs sans ID (row joue ce rôle) #}
+{# entry indique qu'on parle d'une Collection #}
+{% block _food_images_entry_row %}
+  {{form_widget(form)}}
+{% endblock %}
+
+
+{# Block pour supprimer une image secondaire créee #}
+{% block _food_images_entry_widget %}
+  {# Chaque groupe de champs images sencondaires possède in ID(ce variable est la propriété de (form)) #}
+  <div class="form-group mt-3" id="block_{{id}}">
+    <div class="row">
+      <div class="col-md-10 col-10">
+        <div class="row">
+          <div class="col">
+            {{form_widget(form.caption)}}
+          </div>
+          <div class="col">
+            {{form_widget(form.url)}}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2 col-2">
+        <button class="btn btn-danger" type="button" data-action="delete" data-target="#block_{{id}}">X</button>
+      </div>
+    </div>
+  </div>
+{% endblock %}

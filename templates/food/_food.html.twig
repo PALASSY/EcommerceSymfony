@@ -1,0 +1,55 @@
+{# include dans food/index.html.twig#}
+
+
+
+
+
+<div class="col-md-4 mb-3 row">
+	<div class="card mb-3">
+		<h3 class="card-header text-center">{{food.menu |slice(0,12)}}</h3>
+		<a href="{{path('foods_single',{'slug':food.slug})}}">
+			<img style="height: 200px; width:100%; display: block;" src="{{food.coverImage}}" alt="{{food.menu}}" class="img-fluid">
+		</a>
+		<div class="card-body">
+			<h5 class="card-title text-center ">{{food.price}}
+				&euro;</h5>
+			<p>{{food.description|striptags|slice(0,70) ~ "..."}}</p>
+			<div class="row">
+				<div class="col-md-6">
+					<a href="{{path('foods_single',{'slug': food.slug})}}" class="btn	btn-warning btn-sm">voir
+						<i class="fas fa-hamburger"></i>
+					</a>
+				</div>
+				<div class="col-md-6">
+					{#Rajouter une condition si l'utilisateur est connecté(app.use) et l'author de l'annonce #}
+					{% if app.user and app.user == food.author %}
+						<a href="{{path('foods_edit',{'slug':food.slug})}}" class="btn btn-info btn-sm">Modifier</a>
+					{% endif %}
+				</div>
+				<hr>
+				<div class="col text-center mt-2">
+{#					{% if food.author.tables|length >= 1  %
+						<a href="{{path('foods_single',{'slug': food.slug})}}"  class="btn btn-success">
+							<i class="fas fa-utensils"></i> 
+							{{food.author.tables|length}}
+								{% if food.author.tables|length > 1 %}
+								 	tables libres
+								{% else %}
+									table libre
+								{% endif %}
+							</a>
+					{% endif %} #}
+				</div>
+			</div>
+		</div>
+		<div class="card-footer text-muted text-center">
+			{#{% if ad.comments|length > 0 %}
+							{% include 'inc/rating.html.twig' with 'rating' : ad.avarageRatings } %}
+							sur {
+							{ad.comments|length}} avis
+						{% else %}
+						{% endif %}#}
+			<span>Pas encore noté</span>
+		</div>
+	</div>
+</div>

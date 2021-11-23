@@ -1,0 +1,199 @@
+{% extends 'base.html.twig' %}
+
+{# trouver le champ par rapport à son ADN(slug) #}
+{% block title %}Menu-unique-Shangrila{% endblock %}
+
+
+{% block body %}
+
+	<div style="background-image:url({{food.coverImage}})" class="titreAd mt-5 overlaysmall">
+
+			<div class="container dataContainer">
+				<h1 class="show">{{food.menu}}</h1>
+				<p>{{food.description|striptags|slice(0,40) ~ "..."}}</p>
+				<p><strong>{{food.price}}	&euro;</strong></p>
+
+{#				<div class="row">
+					<div class="col">
+						<a href="{{path('commande_add',{'id':food.id})}}" class="btn btn-warning mb-3 mx-3"><i class="fas fa-concierge-bell"></i> 	Commander</a>
+					</div>
+
+					{% if food.author.tables|length > 0 %}
+						<div class="col">
+							{# Affichage des tables à réserver 
+							<div class="dropdown show" id="dropdownshow">
+								<a class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink"  	data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									{{food.author.tables|length}} {% if food.author.tables|length > 1 %}tables disponibles {% 	else %}
+										table disponible {% endif %}
+								</a>
+
+								<div class="dropdown-menu dropdownright mt-2" aria-labelledby="dropdownMenuLink">
+									{# Si L'author du menu === author de la table  On peut reserver la table de l'author de la 	table 		
+									{% for tables in food.author.tables %}
+										{% if food.author.id == tables.authortable.id  %}
+											<a href="{{path("tables_reservation",{"id":tables.id})}}" class="dropdown-item"><i 	class="fas fa-utensils"></i> Table pour {{tables.nombre}}
+											{% if tables.nombre > 1 %}
+												personnes
+											{% else %}
+												personne
+											{% endif %}		
+											</a>
+											{% if food.author.tables|length > 1 %}
+												<div class="dropdown-divider"></div>
+											{% endif %}
+										{% endif %} 
+									{% endfor %}
+								</div>
+							</div>
+						</div>
+					{% endif %}
+#}
+
+					{% if app.user and app.user == food.author %}
+						<div class="col">
+							{#Rajouter une condition si l'utilisateur est connecté(app.use) et l'author du menu #}
+								<a href="{{path("foods_edit",{"slug":food.slug})}}" class="btn btn-info mb-3"><i class="fas fa-carrot"></i> Modifier mon menu</a>
+						</div>	
+
+						<div class="col">
+								<a href="{{path('foods_delete', {'slug':food.slug})}}" class="btn btn-primary mb-3 mx-3" 			onclick="return confirm(`Etes-vous sûr de vouloir supprimer votre annonce`)"><i class="fas fa-trash-alt"></i> Supprimer mon menu</a>
+						</div>
+					{% endif %}
+
+				</div>
+			</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+
+			<div class="col-md-8 mb-3">
+				{# |raw veut dire sans balise HTML #}
+				{{food.description|raw}}
+				
+
+				<div id="carouselExampleIndicators" class="carousel slide mt-5" data-bs-ride="carousel">
+					<div class="carousel-indicators">
+						{# Ici on récupére les images secondaires spécialement pour les indicateurs et le mode active #}
+						{% for imageentity in food.images %}
+							{# ainsi les indicateurs sont en dur, alors on utilise => loop.index0 càd la variable de 0 jusqu'au nombre total d'images secondaires #}
+							{# ici tous les <button> sont en mode active, alors on utilise => loop.first càd seul le 1er variable est en mode active #}<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{loop.index0}}" class="{% if loop.first %}active{% endif %}" aria-current="true" aria-label="Slide 1"> </button>
+						{% endfor %}
+					</div>
+					{# images #}
+					<div class="carousel-inner">
+						{# Ici on récupére les images secondaires pour les affichées en carousel #}
+						{% for imageentity in food.images %}
+							{# ici tous les <div> sont en mode active, alors on utilise => loop.first càd seul le 1er variable est en mode active #}
+							<div class="carousel-item {% if loop.first  %}active{% endif %}">
+								<img src="{{imageentity.url}}" class="d-block w-100" alt="...">
+								<div class="carousel-caption d-none d-md-block">
+									<h1 class="h4 pt-5">{{food.menu}}</h1>
+									<p>{{imageentity.caption}}</p>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+					{# boutons #}
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Précédent</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Suivant</span>
+					</button>
+				</div>
+				<hr>
+
+				{# Afficher les commentaires à condition qu'il en a au moins une 
+				{% if ad.comments|length > 0 %}
+					<div class="mt-5">
+						<h5 class="mb-3 h6">Commentaire de
+							{{ad.comments|length}}
+							{% if ad.comments|length <= 1 %}
+								voyageur
+							{% else %}
+								voyageurs
+							{% endif %}
+						</h5>
+
+						La moyenne de note de commentaire 
+						<div class="row bg-light p-2 my-1 mb-5">
+							<div class="col-5">La moyenne des notes sur:
+								{{ad.comments|length}}</div>
+							<div class="col-7 ">
+								{% include "inc/rating.html.twig" with {'rating':ad.avarageRatings} %}
+							</div>
+						</div>
+
+
+						{# Afficher dans une boucle tous les commentaires
+						{% for comment in ad.comments %}
+							<div class="row">
+								<div class="col-md-4">
+									<img src="{{comment.author.avatar}}" alt="image de {{comment.author.fullName}}" class="avatar avatar-small">
+									<small>{{comment.author.fullName}}</small>
+								</div>
+								<div class="col-md-8">
+									<p>Commentaire:</p>
+									<p>{{comment.content}}</p>
+									<p> #}
+										{# On va faire une boucle entre 1 et 5 pour afficher 5 étoiles (pleine et/ou vide) pour l'affichage des notes #}
+										{# définir la variable rating(inc/rating.html.twig)
+									{% include "inc/rating.html.twig" with {'rating':comment.rating} %}
+								</p>
+							</div>
+							</div>
+						<hr>
+					{% endfor %}
+					</div>
+				{% else %}
+					<div class="mb-5">Pas encore de commentaire</div>
+				{% endif %}
+			</div>#}
+
+
+			{# A partir d'ici on utilise L'Entity User.php #}
+			<div class="col">
+				 {#Pour éviter la répétion de la méthode (food.author) on va crée une varible moins  longue 
+				{% set f = food.author %}
+				{% set url = path('user_single',{'slug':f.slug}) %}
+				<div class="row">
+					<div class="col-4">
+						<a href="{{ url }}">
+							<img src="{{f.avatar}}" alt="{{f.fullname}}" class="avatar ">
+						</a>
+					</div>
+					<div class="col fullname">
+						<a href="{{ url }}">
+							<h4>{{f.fullname}}</h4>
+						</a>
+						 {#Pour avoir le nombre de menu publiées par l'author, on passe sur la variable ads de l'Entity User.php qui retourne un tableau et on stipule qu'on veut récupére la longeur de ce tableau #}
+{#						<span class="bg bg-warning">{{f.food|length}}
+							{% if f.food|length >1  %}
+								menus
+							{% else %}
+								menu
+							{% endif %}
+						</span>
+						<span> et </span>
+						{# On va récupérer le nombre de tables de l'author de menu 
+						<span class="bg bg-warning">{{f.tables|length}}
+							{% if f.tables|length > 1 %}
+								tables
+							{% else %}
+								table
+							{% endif %}
+						</span>
+					</div>
+				</div>
+				<p>{{f.introduction}}</p>#}
+
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}
+

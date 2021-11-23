@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'food/_collections.html.twig' %}
+
+{% block title %}Creation-Food-Shangrila
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-5">
+		<h1 class="text-center mb-5">Création d'un menu</h1>
+
+		{#  {{form(form)}}   #}
+		{{ form_start(form)}}
+
+		{{ form_widget(form)}}
+
+		<button class="btn btn-danger btn-lg mt-3">Créer</button>
+
+		{{ form_end(form)}}
+	</div>
+{% endblock %}
