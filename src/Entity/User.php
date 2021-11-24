@@ -84,6 +84,11 @@ class User implements UserInterface
      */
     private $food;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Role::class, mappedBy="userRole")
+     */
+    private $userRoles;
+
 
 
     //Concater le nom et prénom 
@@ -112,6 +117,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->food = new ArrayCollection();
+        $this->userRoles = new ArrayCollection();
     }
 
 
@@ -262,9 +268,9 @@ class User implements UserInterface
     {
 
         //On va récupérer tous les titres rôles qui se trouve dans tableau userRoles()
-    //    $roles = $this->userRoles->map(function ($role) {
-    //        return $role->getTitle();
-    //    })->toArray();
+        $roles = $this->userRoles->map(function ($role) {
+            return $role->getTitle();
+        })->toArray();
 
         //On va rajouter dans ce nouveau tableau le rôle ROLE_USER
         $roles[] = 'ROLE_USER';
@@ -310,6 +316,33 @@ class User implements UserInterface
     public function getUsername()
     {
         return $this->email;
+    }
+
+    /**
+     * @return Collection|Role[]
+     */
+    public function getUserRoles(): Collection
+    {
+        return $this->userRoles;
+    }
+
+    public function addUserRole(Role $userRole): self
+    {
+        if (!$this->userRoles->contains($userRole)) {
+            $this->userRoles[] = $userRole;
+            $userRole->addUserRole($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserRole(Role $userRole): self
+    {
+        if ($this->userRoles->removeElement($userRole)) {
+            $userRole->removeUserRole($this);
+        }
+
+        return $this;
     }
 
 }

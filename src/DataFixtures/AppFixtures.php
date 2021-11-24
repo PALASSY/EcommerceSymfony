@@ -31,25 +31,25 @@ class AppFixtures extends Fixture
         $faker = Factory::create('FR-fr');
 
         //On va créer un nouvel Objet Role()
-    //    $adminRole = new Role();
+        $adminRole = new Role();
         //On va setter le titre de ce nouvel Objet() à ROLE_ADMIN, on garde le même ecriture dans UserInterface 
-    //    $adminRole->setTitle('ROLE_ADMIN');
+        $adminRole->setTitle('ROLE_ADMIN');
         //On va enregister 
-    //    $manager->persist($adminRole);
+        $manager->persist($adminRole);
 
         //On va créer un nouvel Objet User() avec un title(ROLE_ADMIN)
-    //   $adminUser = new User();
+        $adminUser = new User();
         //On va setter toutes les données de ce nouvel Objet 
-    //    $adminUser->setFirstname('PALASSY')
-    //        ->setLastname('Christian')
-    //        ->setEmail('christianpalassy@hotmail.fr')
-    //        ->setAvatar('https://randomuser.me/api/portraits/men/44.jpg')
-    //        ->setMdphashed($this->encoder->hashPassword($adminUser, 'password'))
-    //        ->setIntroduction($faker->sentence())
-    //        ->setDescription("<p>" . join("</p><p>", $faker->paragraphs(4)) . "</p>")
-    //        ->addUserRole($adminRole);
-    //    //On enregistre 
-    //    $manager->persist($adminUser);
+        $adminUser->setFirstname('PALASSY')
+            ->setLastname('Christian')
+            ->setEmail('christianpalassy@hotmail.fr')
+            ->setAvatar('https://randomuser.me/api/portraits/men/44.jpg')
+            ->setMdphashed($this->encoder->hashPassword($adminUser, 'password'))
+            ->setIntroduction($faker->sentence())
+            ->setDescription("<p>" . join("</p><p>", $faker->paragraphs(4)) . "</p>")
+            ->addUserRole($adminRole);
+        //On enregistre 
+        $manager->persist($adminUser);
 
 
         //On va créer un tableau pour récupérér les données des Utilisateurs en mode GLOBAL
