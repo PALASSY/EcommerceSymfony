@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+	La page
+	{{status_code}}
+{% endblock %}
+
+
+{% block body %}
+	<main class="container text-center mb-3">
+		<h1>Oups! La page n'existe pas
+		</h1>
+		<h2 class="h4">Merci de revenir sur notre site</h2>
+		<div class="text-center mt-5">
+			<a href="{{path("home")}}" class="btn btn-info">Retour à la page d'accueil</a>
+			<a href="{{path("foods_list")}}" class="btn btn-primary">Nos annonces</a>
+		</div>
+	</main>
+{% endblock %}
+

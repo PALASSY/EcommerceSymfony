@@ -117,57 +117,58 @@ class AppFixtures extends Fixture
 
 
         //Créer 10 tables
-    //    for ($t = 0; $t <= 10; $t++) {
+        for ($t = 0; $t <= 10; $t++) {
 
             //On va créer une nouvelle Objet Table()
-    //        $table = new Table();
+            $table = new Table();
 
             //Randomiser la place 
-    //        $place = $faker->randomElement($places);
+            $place = $faker->randomElement($places);
             //On Créer nombre de personne de 1 à 20
-    //        $nombre = mt_rand(1, 8);
+            $nombre = mt_rand(1, 8);
             //Créer la date de réservation 
-    //        $date = $faker->dateTimeBetween('-3 months');
+            $date = $faker->dateTimeBetween('-3 months');
             //la created_at à faire en __construct dans Entity Table()
             //Le champ relationnel c'est le tableau User[] à faire un random
-    //        $user = $users[mt_rand(0, count($users) - 1)];
+            $user = $users[mt_rand(0, count($users) - 1)];
             //Créer une image 
-    //        $image = $faker->imageUrl(400, 350);
+            $image = $faker->imageUrl(400, 350);
 
             //On va setter le nouvel Objet Table()
-    //        $table->setPlace($place)
-    //            ->setNombre($nombre)
-    //            ->setDate($date)
-    //            ->setImage($image)
-    //            ->setAuthortable($user);
+            $table->setPlace($place)
+                ->setNombre($nombre)
+                ->setDate($date)
+                ->setImage($image)
+                ->setAuthortable($user);
 
             //Enregistrer
-    //        $manager->persist($table);
+            $manager->persist($table);
 
 
 
             //On va créer 5 reservations
-    //        for ($r = 0; $r = mt_rand(0, 5); $r++) {
+            for ($r = 0; $r = mt_rand(0, 5); $r++) {
                 //On va créer une Objet Reservation()
-    //            $reservation = new Reservation();
+                $reservation = new Reservation();
 
                 //Le client c'est l'user récupérer dans un tableau 
-    //            $client = $users[mt_rand(0, count($users) - 1)];
+                $client = $users[mt_rand(0, count($users) - 1)];
                 //La table c'est le nouvel Objet Table()
-    //            $table = $table;
+                $table = $table;
                 //La date de réservation
-    //            $date = $faker->dateTimeBetween('-3 months');
+                $date = $faker->dateTimeBetween('-3 months');
                 //Le commentaire
-    //            $comment = $faker->sentence();
+                $comment = $faker->sentence();
 
                 //On va setter 
-    //            $reservation->setClient($client)
-    //                ->setTabledisponible($table)
-    //                ->setDate($date)
-    //                ->setCommentaire($comment);
-    //            $manager->persist($reservation);
-    //        }
-    //    }
+                $reservation->setClient($client)
+                    ->setTabledisponible($table)
+                    ->setDate($date)
+                    ->setCommentaire($comment)
+                    ;
+                $manager->persist($reservation);
+            }
+        }
 
 
 
@@ -194,74 +195,72 @@ class AppFixtures extends Fixture
                 ->setCoverImage($image)
                 ->setStock(mt_rand(1, 400))
                 ->setAuthor($user)
-                ->setCategory($categoryrandom)
-                ;
+                ->setCategory($categoryrandom);
             $manager->persist($food);
 
             //Chaque Food() aura 3 à 5 images secondaires
-        for ($j = 1; $j <= mt_rand(3, 5); $j++) {
-            $image = new Image();
-            $url = $faker->imageUrl();
-            $caption = $faker->sentence();
+            for ($j = 1; $j <= mt_rand(3, 5); $j++) {
+                $image = new Image();
+                $url = $faker->imageUrl();
+                $caption = $faker->sentence();
 
-            $image->setUrl($url)
-                  ->setCaption($caption)
-                  ->setFood($food)
-                  ;
-            $manager->persist($image);
-        }
+                $image->setUrl($url)
+                    ->setCaption($caption)
+                    ->setFood($food);
+                $manager->persist($image);
+            }
 
 
 
             //On va créer 5 commandes
-    //        for ($k = 1; $k = mt_rand(0, 5); $k++) {
+//            for ($k = 1; $k = mt_rand(0, 5); $k++) {
 
                 //Créer une nouvelle commande
-    //            $commande = new Commande();
+//                $commande = new Commande();
 
                 //Le commandeur c'est l'un des 10 authors
-    //            $commandeur = $users[mt_rand(0, count($users) - 1)];
+//                $commandeur = $users[mt_rand(0, count($users) - 1)];
 
                 //Le menu c'es le nouvel Objet Food()
-    //            $menufood = $food;
+//                $menufood = $food;
 
                 //La date de commande 
-    //            $datecommande = $faker->dateTimeBetween('-3 months');
+//                $datecommande = $faker->dateTimeBetween('-3 months');
 
                 //Le nombre de menu 
-    //            $nbrmenu = mt_rand(1, 5);
+//                $nbrmenu = mt_rand(1, 5);
 
                 //Le prix total de la commande 
-    //            $prixtotal = $food->getPrice() * $nbrmenu;
+//                $prixtotal = $food->getPrice() * $nbrmenu;
 
                 //Mode de paiement 
-    //            $modepaiement = $faker->randomElement($choice);
+//                $modepaiement = $faker->randomElement($choice);
 
                 //Etat de paiement 
-    //            $etatpaiement = 1;
+//                $etatpaiement = 1;
 
                 //Date de livraison
-    //            $datelivraison = $faker->dateTimeBetween('-2 days');
+//                $datelivraison = $faker->dateTimeBetween('-2 days');
 
                 //Lieu de livraison 
-    //            $lieulivraison = $faker->address;
+//                $lieulivraison = $faker->address;
 
                 //Il manque la date de création de commande, on le fera en construct dans l'Entity Commande()
 
 
                 //On va setter le nouvel Objet Commande()
-    //            $commande->setCommandeur($commandeur)
-    //                ->setDatecommande($datecommande)
-    //                ->setNbrmenu($nbrmenu)
-    //                ->setPrixtotal($prixtotal)
-    //                ->setModepaiement($modepaiement)
-    //                ->setEtatpaiement($etatpaiement)
-    //                ->setDatelivraison($datelivraison)
-    //                ->setLieulivraison($lieulivraison)
-                    //->setMenu($menufood)
-    //            ;
-    //            $manager->persist($commande);
-    //        }
+//                $commande->setCommandeur($commandeur)
+//                    ->setDatecommande($datecommande)
+//                    ->setNbrmenu($nbrmenu)
+//                    ->setPrixtotal($prixtotal)
+//                    ->setModepaiement($modepaiement)
+//                    ->setEtatpaiement($etatpaiement)
+//                    ->setDatelivraison($datelivraison)
+//                    ->setLieulivraison($lieulivraison)
+//                    //->setMenu($menufood)
+//                ;
+//                $manager->persist($commande);
+//            }
         }
 
 

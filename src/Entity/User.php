@@ -89,6 +89,16 @@ class User implements UserInterface
      */
     private $userRoles;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Table::class, mappedBy="authortable", orphanRemoval=true)
+     */
+    private $tables;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="client", orphanRemoval=true)
+     */
+    private $reservations;
+
 
 
     //Concater le nom et prénom 
@@ -118,6 +128,8 @@ class User implements UserInterface
     {
         $this->food = new ArrayCollection();
         $this->userRoles = new ArrayCollection();
+        $this->tables = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
 
@@ -340,6 +352,66 @@ class User implements UserInterface
     {
         if ($this->userRoles->removeElement($userRole)) {
             $userRole->removeUserRole($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Table[]
+     */
+    public function getTables(): Collection
+    {
+        return $this->tables;
+    }
+
+    public function addTable(Table $table): self
+    {
+        if (!$this->tables->contains($table)) {
+            $this->tables[] = $table;
+            $table->setAuthortable($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTable(Table $table): self
+    {
+        if ($this->tables->removeElement($table)) {
+            // set the owning side to null (unless already changed)
+            if ($table->getAuthortable() === $this) {
+                $table->setAuthortable(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getClient() === $this) {
+                $reservation->setClient(null);
+            }
         }
 
         return $this;

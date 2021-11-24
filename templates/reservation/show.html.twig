@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservation N°{{reservation.id}} - Shangrila
+{% endblock %}
+
+{% block body %}
+	{# Pour éviter la répétion de la méthode (booking.ad)/(booking.ad.author) on va crée un
+	varible moins  longue #}
+{% set table = reservation.tabledisponible %}
+{% set author = table.authortable %}
+
+	<main class="container-fluid mb-5">
+
+		{# Affichage de message de succès quand la réservation est enrégistrée dans BD, 
+		ici ce message flash() devrait être créer dans Controller(Booking.php) mais on va 
+		utiliser une methode GET pour intercepter l'url et c'est à partir de cette url 
+		qu'on crée un message flash #}
+		{% if app.request.query.get('alert') %}
+			<div class="alert alert-success container">
+				Bravo! votre réservation auprès de:
+				<a href="#">
+					{{author.fullname}}
+				</a>
+				qui porte le N°:
+				<a href="#">
+					{{table.id}}
+				</a>
+				a bien été réservée
+			</div>
+		{% endif %}
+
+
+
+		<h1 class="text-center">Réservation du bien N°{{reservation.id}}</h1>
+			<h2 class="h4 text-center resumereservation">
+				Table pour {{table.nombre}} 
+    	  {% if table.nombre > 1 %}
+    	    personnes
+    	  {% else %}
+    	    personne
+    	  {% endif %}
+    	   - en {{table.place}} 
+			</h2>
+
+		<section class="col-md-8 offset-md-2 my-5">
+			<div class="row">
+
+				<div class="col">
+					<div class="card bg-light">
+						{# Détail de la réservation #}
+						<div class="card-header">
+							<h3 class="card-title text-center">Détails Réservation</h3>
+						</div>
+						<div class="card-body">
+							<dl class="row">
+
+								<dt class="col-md-4">Numéro</dt>
+								<dd class="col-md-8">{{reservation.id}}</dd>
+
+								<dt class="col-md-4">Date</dt>
+								<dd class="col-md-8">{{reservation.date | date('d/m/Y')}}</dd>
+
+								<dt class="col-md-4">Heure</dt>
+								<dd class="col-md-8">{{reservation.date | format_datetime('none', 'short', locale='fr')}}</dd>
+
+
+								<dt class="col-md-4">Votre message</dt>
+								<dd class="col-md-8">{{reservation.commentaire | default('Aucun message')}}</dd>
+
+							</dl>
+
+
+							{# Ici c'est l'annonceur(proprietaire) pas le reservateur #}
+							<h3 class="alert-heading h4 mt-5">Gérant du restaurant</h3>
+							<hr>
+							<div class="row">
+								<div class="col-md-3">
+									<a href="{{path('user_single',{'slug':author.slug})}}">
+										<img src="{{author.avatar}}" alt="Avatar de {{author.fullname}}" class="avatar avatar-big">
+									</a>
+								</div>
+								<div class="col-md-9">
+									<a href="{{path('user_single',{'slug':author.slug})}}">{{author.fullname}}</a><br>
+									<span class="badge badge-primary">{{author.food|length}}
+										{% if author.food|length <= 1%}menu{% else %}menus
+										{% endif %}
+									</span>
+								</div>
+								<div>{{ author.description|striptags|slice(0, 350) ~ '...' }}</div>
+							</div>
+
+							{# avis(commentaire) d'un author(reservateur) par rapport à une 	annonce 
+							<div class="text-center alert alert-info">
+								<h3 class="alert-heading h4">Votre avis pour la prestation </h3>
+								{% if date() > date(reservation.date) %}
+									{# on va utiliser le function getter pour récupérer le 	commentaire d'un author par rapport à une annonce puis le 	setter parce c'est long 
+									{% set comment = a.commentFromAuthor(app.user) %}
+									{# Si il y a déjà un avis et n'est pas null, on affiche 	l'avis 
+									{% if comment is not null %}
+										<blockquote>{{comment.content}}</blockquote>
+										<strong>Note:
+										</strong>
+										{% include 'inc/rating.html.twig' with {'rating':comment.	rating} %}
+									{% else %}
+										{# Sinon on affiche le formulaire pour receuillir l'avis 
+										{{form_start(form)}}
+										{{form_widget(form)}}
+										<button type="submit" class="btn btn-primary">Envoyer</	button>
+										{{form_end(form)}}
+									{% endif %}
+								{% else %}
+									<p class="alert alert-warning">Vous ne pourrez pas noté cette 	annonce parceque votre séjour n'est pas encore terminé</p>
+								{% endif %}
+							</div>#}
+						</div>
+					</div>
+				</div>
+
+				{# Détail de l'annonce #}
+				<div class="col-md-4">
+					<div class="card bg-light">
+						<div class="card-header">
+							<h3 class="card-title text-center">Votre Table</h3>
+						</div>
+						<div class="card-body">
+								<img style="height: 350px; width:100%; display: block;" src="{{table.image}}" alt="Image de couverture de {{table.id}}" class="img-fluid">
+							<h4 class="h5 mt-5 text-center">
+								<a href="#" class="btn btn-outline-info img-fluid">Voir votre table en {{table.place}}</a>
+							</h4>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</section>
+	</main>
+
+
+{% endblock %}
+

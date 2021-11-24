@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}
+	La page
+	{{status_code}}
+{% endblock %}
+
+
+{% block body %}
+	<main class="container text-center mb-3">
+		<h1>Oups! Erreur serveur
+		</h1>
+		<h2 class="h4">Revenir sur un lieu sur</h2>
+		<div class="text-center mt-5">
+			<a href="{{path("home")}}" class="btn btn-info">Accueil</a>
+		</div>
+	</main>
+{% endblock %}
+

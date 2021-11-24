@@ -13,14 +13,14 @@
 				<p>{{food.description|striptags|slice(0,40) ~ "..."}}</p>
 				<p><strong>{{food.price}}	&euro;</strong></p>
 
-{#				<div class="row">
+				<div class="row">
 					<div class="col">
-						<a href="{{path('commande_add',{'id':food.id})}}" class="btn btn-warning mb-3 mx-3"><i class="fas fa-concierge-bell"></i> 	Commander</a>
+{#						<a href="{{path('commande_add',{'id':food.id})}}" class="btn btn-warning mb-3 mx-3"><i class="fas fa-concierge-bell"></i> 	Commander</a> #}
 					</div>
 
 					{% if food.author.tables|length > 0 %}
 						<div class="col">
-							{# Affichage des tables à réserver 
+							{# Affichage des tables à réserver #}
 							<div class="dropdown show" id="dropdownshow">
 								<a class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink"  	data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									{{food.author.tables|length}} {% if food.author.tables|length > 1 %}tables disponibles {% 	else %}
@@ -28,7 +28,7 @@
 								</a>
 
 								<div class="dropdown-menu dropdownright mt-2" aria-labelledby="dropdownMenuLink">
-									{# Si L'author du menu === author de la table  On peut reserver la table de l'author de la 	table 		
+									{# Si L'author du menu === author de la table  On peut reserver la table de l'author de la 	table #}		
 									{% for tables in food.author.tables %}
 										{% if food.author.id == tables.authortable.id  %}
 											<a href="{{path("tables_reservation",{"id":tables.id})}}" class="dropdown-item"><i 	class="fas fa-utensils"></i> Table pour {{tables.nombre}}
@@ -47,7 +47,7 @@
 							</div>
 						</div>
 					{% endif %}
-#}
+
 
 					{% if app.user and app.user == food.author %}
 						<div class="col">

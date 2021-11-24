@@ -1,0 +1,177 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation-table-Shangrila
+{% endblock %}
+
+{# Plugin calendar  CSS#}
+{% block stylesheets %}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+{% endblock %}
+
+{% block body %}
+	<main class="container-fluid mb-5">
+		<h1 class="my-5 text-center h2"> Table pour {{table.nombre}} {% if table.nombre > 1 %}personnes {% else %} personne {% endif %}</h1>
+
+		<section class="col-md-8 offset-md-2 mb-5">
+			{{form_start(form)}}
+			<div class="row">
+
+				{# Affichage  voyageur/annonce liés à cette réservation à modifié #}
+				<div class="col-md-4">
+					{# Rvoyageur #}
+					<div class="card bg-light">
+						<div class="card-header">
+							<h4 class="card-title text-center">Vous allez réservez une table chez:
+								<br>
+								<a href="{{path('user_single', {'slug':table.authortable.slug})}}" class="reservationtable">
+									<strong>{{table.authortable.fullname}}</strong>
+								</a>
+							</h4>
+						</div>
+						<div class="card-body">
+							<img style="height: 350px; width:100%; display: block;" src="{{table.image}}" alt="Image de couverture de {{table.id}}" class="img-fluid">
+						</div>
+					</div><br>
+					{# Table #}
+					<div class="card bg-light">
+						<div class="card-header">
+							<h4 class="card-title text-center">Table N°
+								<strong>{{table.id}}</strong>
+							</h4>
+						</div>
+						<div class="card-body">
+							<p class="text-center">Votre table se trouve en : 
+								<strong>{{table.place}}</strong>
+							</p>
+						</div>
+					</div>
+				</div>
+
+				{# Affichage la réservation #}
+				<div class="col">
+					<div class="card bg-light">
+						<div class="card-header">
+							<h4 class="card-title text-center">Choisissez la date et l'heure de reservation</h4>
+						</div>
+						<div class="card-body">
+							{{form_row(form.date)}}
+						</div>
+						<hr>
+						<h3 class="mt-3 ml-3">Avez-vous un message?</h3>
+						{{form_row(form.commentaire)}}
+					</div>
+				</div>
+
+			</div>
+			<div class="form-group text-center mt-3">
+				<button type="submit" class="btn btn-danger mt-3">
+					<i class="fas fa-check"></i>
+					Reserver</button>
+			</div>
+			{{form_end(form)}}
+		</section>
+		<div class="form-group text-center">
+			<a href="{{path("foods_list")}}" class="btn btn-light mt-3">
+				<i class="fas fa-chevron-left"></i>
+				Retour sur la liste des menus</a>
+		</div>
+
+		<br>
+		<br>
+	</main>
+
+{% endblock %}
+
+
+{# Plugin calendar JS #}{% block javascripts %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<script>
+	$(document).ready(function(){ 
+
+		// Récupérer les ID des input(startDate/endDate) du formulaire de réservation
+		$("#reservation_date").datepicker({
+					format: 'dd/mm/yyyy',
+					startDate: new Date(),
+					//calendarWeeks: true,
+					todayHighlight: true,
+					datesDisabled: [{% for day in table.notAvailableDays %} "{{ day.format('d/m/Y') }}",{% endfor %}]
+			});
+
+		let label = document.createElement('label');
+		label.setAttribute('for','reservation_time');
+		label.setAttribute('id','reservation_time');
+		label.className = 'resquire mt-5';
+		label.textContent = "Heure de réservation";
+		let parent = document.getElementById('reservation_date');
+		parent.insertAdjacentElement('afterend',label);
+		//console.log(input);
+
+
+
+		let input = document.createElement('input');
+		input.setAttribute('type','text');
+		input.setAttribute('id','reservation_time_input');
+		input.className = 'reservation_time form-control';
+		input.placeholder = "Choisissez l'heure";
+		let parentlabel = document.getElementById('reservation_time');
+		parentlabel.insertAdjacentElement('afterend',input);
+		console.log(parentlabel);
+	
+
+// Afficher dynamiquement le montant et la durée du séjour
+//$('#booking_startDate, #booking_endDate').on('change', calculateAmount);
+
+$('#reservation_date').on('change',getHeurereservation);
+});
+
+
+function getHeurereservation() {
+    // Sélectionner l'élément input et récupérer sa valeur
+		const date = new Date($('#reservation_date').val().replace(/(\d+)\/(\d+)\/(\d{4})/, '$3-$2-$1'));
+
+		if(date){
+				//milliseconde
+				const millisecondes = 24*60*60*1000;
+
+				//heure Timestamp
+				const heure = date.getTime();
+
+				//Jour
+				const day = heure / millisecondes;
+
+   		// Afficher la date
+   		$('#reservation_time_input').val(heure);
+		}
+}
+
+
+// Function qui calcule la durée et le montant du séjour
+{#function calculateAmount() { // Récupérer la valeur de cahque input (date début et fin réservation)
+const startDate = new Date($('#booking_startDate').val().replace(/(\d+)\/(\d+)\/(\d{4})/, '$3-$2-$1'));
+const endDate = new Date($('#booking_endDate').val().replace(/(\d+)\/(\d+)\/(\d{4})/, '$3-$2-$1'));
+
+
+// Si les champs ne sont pas vides(et début<fin)
+if (startDate && endDate && startDate < endDate) {
+
+// On va calculer la durée du séjour(date de fin - date début) pas l'inverse sinon BUG!!!
+// On va transformer la date en millisecondes (écoulées depuis le 1er janvier 1970) pour faciliter le calcule (methode getTime() de JS)
+const duree = endDate.getTime() - startDate.getTime();
+// Et pour revenir en date on va diviser en millisecondes
+const millisecondes = 24 * 60 * 60 * 1000;
+const days = duree / millisecondes;
+
+// On va pouvoir calculer le montant (durée * prix)
+const amount = days * {{ ad.price }};
+
+// On va afficher dynamiquement (durée et montant) dans la balise <span> de notre page de réservation(ici)
+$('#days').text(days);
+$('#amount').text(amount.toLocaleString('fr-FR'));
+}
+}#}
+
+</script>{% endblock %}
+
