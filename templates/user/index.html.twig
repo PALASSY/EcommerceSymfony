@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Author - Shangrila{% endblock %}
+
+{% block body %}
+
+	<div class="container mt-5 mb-5">
+		<h1 class="text-center">Page de profil</h1>
+		<hr>
+		<div class="row">
+			<div class="col-3 mt-5">
+				<img src="{{user.avatar}}" alt="avatar de {{user.fullname}}" class="avatar">
+				<br>
+				<div class="badge badge-primary ml-4">{{user.food|length}}
+					{% if user.food|length >1 %}
+						menus
+					{% else %}
+						menu
+					{% endif %}
+				</div>
+			</div>
+			<div class="col-9 my-5">
+				<h1>{{user.fullname}}</h1>
+				{#{{ dump(app.user) }}#}
+				{#{{ dump(user) }}#}
+				{# Vérifier si l'utilisateur connecté est le propriétaire du page de profil #}
+				{# (same as) en twig veut dire (===)en php #}
+					{% if user is same as (app.user) %}
+					{# Si oui, il peut avoir accès à la modification de sa page profile et sa page de mot de passe #}
+						<div class="row mt-5"> 
+							<div class="col-md-6">
+								<a href="{{path('account_profile')}}" class="btn btn-outline-secondary">Modifier mon profil</a>
+							</div>
+						<div class="col-md-6">
+							<a href="{{path('account_passwordupdate')}}" class="btn btn-outline-secondary">Modifier mon mot de passe</a>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+		<div class="container">
+			{{ user.description|raw }}
+			<hr class="py-3">
+			<h2>Les menus de:
+				{{ user.fullname }}</h2>
+		</div>
+
+		{# Avant d'afficer l'annonce vérifié si l'user en possède une #}
+		{% if user.food|length > 0 %}
+
+			{# Affichage de l'annonce de l'User avec le partial #}
+			<div class="row">
+				{% for food in user.food %}
+
+					{# Ramarque idem dans templates/food/index.html.twig : pas besoin de re-définir la variable GLOBAL parceque la boucle indique déjà le nom de la varibale (food) #}
+					{% include 'food/_food.html.twig' %}
+
+				{% endfor %}
+			</div>
+		{% else %}
+			<div class="alert alert-danger">
+				<p>{{user.fullname}}
+					n'a pas encore de l'annonce.</p>
+			</div>
+		{% endif %}
+	</div>
+
+{% endblock %}
+

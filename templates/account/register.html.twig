@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{#{% form_theme form 'ad/_collections.html.twig' %}#}
+
+{% block title %}Inscription-Shangrila
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1 class="text-center">Inscrivez-vous</h1>
+
+		{#  {{form(form)}}   #}
+		{{ form_start(form)}}
+
+		{{ form_widget(form)}}
+
+		<button class="btn btn-warning  btn-large mt-3">Confirmez votre inscription</button>
+
+		{{form_end(form)}}
+
+	</div>
+
+{% endblock %}
+

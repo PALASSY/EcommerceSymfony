@@ -1,4 +1,3 @@
-
 <header class="row justify-content-center">
 	<div class="bandeau1"></div>
 	<div class="bandeau2 row">
@@ -21,24 +20,37 @@
 					<i class="far fa-envelope"></i>
 					email@email.fr</a>
 			</div>
-		{#
+
 			{% if app.user %}
 				<div class="email-div2 row">
 					<span>
 						<ul class="navbar-nav ml-auto">
 							<li class="nav-item dropdown" role="group" aria-label="dropdown">
-								<a href="#" class="nav-link dropdown-toggle" id="accountDropdownlink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <img src="{{app.user.avatar}}" alt="Avatar de {{app.user.fullname}}" class="avatar avatar-medium"> {{app.user.fullname}} </a>
-								
+								<a href="#" class="nav-link dropdown-toggle" id="accountDropdownlink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<img src="{{app.user.avatar}}" alt="Avatar de {{app.user.fullname}}" class="avatar avatar-medium">
+									{{app.user.fullname}}
+								</a>
+
 								<div class="dropdown-menu dropdown-menu-right headerdropdown" arial-labelledby="accountDropdownLink">
-									<a href="{{path('foods_create')}}" class="dropdown-item"><i class="fas fa-pizza-slice"></i> Créer un menu</a>
+									<a href="{{path('foods_create')}}" class="dropdown-item">
+										<i class="fas fa-pizza-slice"></i>
+										Créer un menu</a>
 									<div class="dropdown-divider"></div>
-									<a href="{{path('account_userConnect')}}" class="dropdown-item"><i class="fas fa-user-alt"></i> Mon profil</a>
+									<a href="{{path('account_userConnect')}}" class="dropdown-item">
+										<i class="fas fa-user-alt"></i>
+										Mon profil</a>
 									<div class="dropdown-divider"></div>
-									<a href="{{path('account_profile')}}" class="dropdown-item"><i class="fas fa-pen-square"></i> Modifier mon profil</a>
+									<a href="{{path('account_profile')}}" class="dropdown-item">
+										<i class="fas fa-pen-square"></i>
+										Modifier mon profil</a>
 									<div class="dropdown-divider"></div>
-									<a href="#" class="dropdown-item"><i class="fas fa-concierge-bell"></i> Ma commande</a>
+									<a href="#" class="dropdown-item">
+										<i class="fas fa-concierge-bell"></i>
+										Ma commande</a>
 									<div class="dropdown-divider"></div>
-									<a href="{{path('account_reservations')}}" class="dropdown-item"><i class="fas fa-utensils"></i> Mes Réservations</a>
+									<a href="{{path('account_reservations')}}" class="dropdown-item">
+										<i class="fas fa-utensils"></i>
+										Mes Réservations</a>
 								</div>
 							</li>
 						</ul>
@@ -50,9 +62,9 @@
 							</i>
 						</a>
 					</span>
-					<div class="js-cartlink float-right ml-3" style="margin-top:2.13em;" data-url="{{path('panier')}}"></div>
+{#					<div class="js-cartlink float-right ml-3" style="margin-top:2.13em;" data-url="{{path('panier')}}"></div> #}
 				</div>
-			{% else %}			
+			{% else %}
 				<div class="email-div2">
 					<span>
 						<a href="{{path("account_login")}}">
@@ -69,7 +81,7 @@
 							<i class="far fa-file-word"></i>
 							En</a>
 					</span>
-					<div class="cart-link float-right ml-3" data-url="{{path('panier')}}"></div>
+{#					<div class="cart-link float-right ml-3" data-url="{{path('panier')}}"></div> #}
 				</div>
 			{% endif %}
 		</div>
@@ -90,7 +102,7 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link active" href="{{path("foods_list")}}">Menu</a>
-					</li>	#}		
+					</li>
 					<li class="nav-item">
 						<a class="nav-link active" href="#">Réservation</a>
 					</li>
@@ -125,3 +137,4 @@
 		</nav>
 	</div>
 </header>
+

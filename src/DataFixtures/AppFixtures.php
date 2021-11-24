@@ -70,49 +70,49 @@ class AppFixtures extends Fixture
 
 
         //On va créer 10 authors(Remarque: 1 author peut avoir plusieurs food())
-    //    for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
 
             //On va préparer l'Avatar(randomuser.me)
             //on va randomiser les options de genre avec faker
-    //        $genreAvatar = $faker->randomElement($genres);
+            $genreAvatar = $faker->randomElement($genres);
 
             //On va distribuer un nombre entre 1 et 99 avec faker puis concaténer .jpg
-    //        $avatarId = $faker->numberBetween(1, 99) . '.jpg';
+            $avatarId = $faker->numberBetween(1, 99) . '.jpg';
 
             //On va prendre une partie de l'URL  de (randomuser.me)
-    //        $avatar = 'https://randomuser.me/api/portraits/';
+            $avatar = 'https://randomuser.me/api/portraits/';
 
             //On va finaliser l'URL complet de l'Avatar avec la condition ternaire
-    //        $avatar .= ($genreAvatar == 'male' ? 'men/' : 'women/') . $avatarId;
+            $avatar .= ($genreAvatar == 'male' ? 'men/' : 'women/') . $avatarId;
 
             //On va créér une description de l'utilisateur avec faker
-    //        $description = "<p>" . join("</p><p>", $faker->paragraphs(5)) . "</p>";
+            $description = "<p>" . join("</p><p>", $faker->paragraphs(5)) . "</p>";
 
             //On va créer un nouvel Objet User()
-    //        $user = new User();
+            $user = new User();
 
             //On va crypter le MDP de nouvel Objet User()
-    //        $hash = $this->encoder->hashPassword($user, 'password');
+            $hash = $this->encoder->hashPassword($user, 'password');
 
             //On va setter le nouvel Obet User()
-    //        $user->setFirstname($faker->firstname)
-    //            ->setLastname($faker->lastname)
-    //            ->setEmail($faker->email)
-    //            ->setAvatar($avatar)
-    //            ->setMdphashed($hash)
-    //            ->setIntroduction($faker->sentence())
-    //            ->setDescription($description)
+            $user->setFirstname($faker->firstname)
+                ->setLastname($faker->lastname)
+                ->setEmail($faker->email)
+                ->setAvatar($avatar)
+                ->setMdphashed($hash)
+                ->setIntroduction($faker->sentence())
+                ->setDescription($description)
                 //->setSlug()
             ;
 
             //Il manque que : Slug, on va lui faire un Lifecycle Callbacks 
 
             //On va persister
-    //        $manager->persist($user);
+            $manager->persist($user);
 
             //On va aussi peupler le tableau vide de $users(pour être ré-utiliser en mode GLOBAL)
-    ////        $users[] = $user;
-    ////    }
+            $users[] = $user;
+        }
 
 
 
@@ -186,15 +186,15 @@ class AppFixtures extends Fixture
 
             //Comme on a rajouter un champ(author) relationnel(Food à User) alors il faut setter ce champ
             //On va randomiser les données des utilisateurs dans qu'on a récupérer dans un tableau GLOBAL
-//            $user = $users[mt_rand(0, count($users) - 1)];
+            $user = $users[mt_rand(0, count($users) - 1)];
 
             $food->setMenu($menu)
                 ->setPrice(mt_rand(3, 80))
                 ->setDescription($description)
                 ->setCoverImage($image)
                 ->setStock(mt_rand(1, 400))
-    //            ->setAuthor($user)
-    //            ->setCategory($categoryrandom)
+                ->setAuthor($user)
+                ->setCategory($categoryrandom)
                 ;
             $manager->persist($food);
 

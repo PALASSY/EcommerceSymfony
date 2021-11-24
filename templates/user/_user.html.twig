@@ -1,0 +1,19 @@
+
+
+{# user = variable global #}
+{# partial de templates/home.html.twig #}
+
+
+	<article class="col"> <div class="card mb-3">
+		<h3 class="card-header text-white bg-warning">{{user.fullname}}</h3>
+		<div class="card-body row">
+			<div class="col-md-4">
+				<img src="{{user.avatar}}" alt="avatar de {{user.fullname}}" class="float-left">
+			</div>
+			<div class="col-md-8 px-4">
+				<p>{{user.introduction|striptags}}</p>
+				<a href="{{path('user_show', {'slug':user.slug})}}" class="btn btn-warning">
+					+ d'infos</a>
+			</div>
+		</div>
+	</article>

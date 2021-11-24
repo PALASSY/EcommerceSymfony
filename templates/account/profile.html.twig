@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{#{% form_theme form _self %}#}
+
+{% block title %}Modification de profil- Shangrila
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<h1 class="text-center">Modifiez votre profil</h1>
+
+		{#  {{form(form)}}   #}
+		{{ form_start(form)}}
+
+		{{ form_widget(form)}}
+    {#{{dump()}}#}
+
+		{#button pour retouner à la page profile #}
+		{% include 'account/_btnReturnProfilePage.html.twig' %}
+
+
+		{{form_end(form)}}
+
+	</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{#{% block textarea_widget %}#}
+{#{{value|raw}}
+{{dump()}}
+
+{% endblock %}#}
+
