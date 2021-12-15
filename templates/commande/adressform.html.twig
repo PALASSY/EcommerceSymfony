@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 {% form_theme form 'food/_collections.html.twig' %}
 
-{% block title %}Creation-Food-Shangrila
+{% block title %}Creation-Adresse livraison-Shangrila
 {% endblock %}
 
 {% block body %}
-	<div class="container mt-5">
-		<h1 class="text-center mb-5">Création d'un menu</h1>
+	<div class="container mt-5" id="adressform">
+		<h1 class="text-center mb-5">Création d'adresse de livraison</h1>
 
 		{#  {{form(form)}}   #}
 		{{ form_start(form)}}
@@ -19,3 +19,4 @@
 	</div>
 
 {% endblock %}
+

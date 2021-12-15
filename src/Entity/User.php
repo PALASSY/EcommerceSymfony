@@ -99,6 +99,16 @@ class User implements UserInterface
      */
     private $reservations;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="commandeur", orphanRemoval=true)
+     */
+    private $commandeurMenu;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Adress::class, mappedBy="adresseuser", cascade={"persist", "remove"})
+     */
+    private $adress;
+
 
 
     //Concater le nom et prénom 
@@ -130,6 +140,7 @@ class User implements UserInterface
         $this->userRoles = new ArrayCollection();
         $this->tables = new ArrayCollection();
         $this->reservations = new ArrayCollection();
+        $this->commandeurMenu = new ArrayCollection();
     }
 
 
@@ -413,6 +424,53 @@ class User implements UserInterface
                 $reservation->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commande[]
+     */
+    public function getCommandeurMenu(): Collection
+    {
+        return $this->commandeurMenu;
+    }
+
+    public function addCommandeurMenu(Commande $commandeurMenu): self
+    {
+        if (!$this->commandeurMenu->contains($commandeurMenu)) {
+            $this->commandeurMenu[] = $commandeurMenu;
+            $commandeurMenu->setCommandeur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommandeurMenu(Commande $commandeurMenu): self
+    {
+        if ($this->commandeurMenu->removeElement($commandeurMenu)) {
+            // set the owning side to null (unless already changed)
+            if ($commandeurMenu->getCommandeur() === $this) {
+                $commandeurMenu->setCommandeur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAdress(): ?Adress
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(Adress $adress): self
+    {
+        // set the owning side of the relation if necessary
+        if ($adress->getAdresseuser() !== $this) {
+            $adress->setAdresseuser($this);
+        }
+
+        $this->adress = $adress;
 
         return $this;
     }

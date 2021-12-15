@@ -1,0 +1,202 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement-Shangrila
+{% endblock %}
+
+{% block body %}
+	<main class="container-fluid mb-5">
+		<h1 class="my-5 text-center h2">Paiement</h1>
+		<section class="col-md-8 offset-md-2 mb-5">
+			<div class="row">
+
+
+		    {# Affichage commande et adresse #}
+        {% for data in user %}
+          <div class="col-md-5">
+            <div class="card bg-light">
+              <div class="card-header">
+                <h4 class="card-title text-center">Récaputilatif 
+                  <br>
+                  <a href="#" class="reservationtable">
+                    <strong>{{data.fullname}}</strong>
+                  </a>
+                </h4>
+              </div>
+              <div class="card-body">
+                  {% for commande in fullcommande %}
+                    {% set food = commande.food %}
+                    <div class="row mt-3">
+                      <div class="mx-3">
+                        <img style="height: 50px; width:60px; display: block;" src="{{food.coverimage}}" alt="Image" class="img-fluid">
+                      </div>
+                      <div>
+                        {{food.menu|slice(0, 20)}}
+                        <strong>{{food.price}}
+                          &euro;</strong>
+                      </div>
+                    </div>
+                  {% endfor %}
+              </div>
+            </div>
+            
+            <div class="card bg-light mt-3">
+              <div class="card-header">
+                <h4 class="card-title text-center">Adresse
+                  <br>
+                  <a href="#" class="reservationtable">
+                    <strong>{{data.fullname}}</strong>
+                  </a>
+                </h4>
+              </div>
+              <div class="card-body">
+                <p>{{data.adress.adressepostale}} <br>{{data.adress.codepostale}} {{data.adress.ville}} <br>{{data.adress.region}}
+              </div>
+            </div>
+
+          </div>
+        {% endfor %}
+
+				{# Affichage paiement stripe #}
+				<div class="col">
+					<div class="card bg-light">
+						<div class="card-header">
+							<h4 class="card-title text-center">Paiement CB
+								<br>
+								<a href="#" class="reservationtable">
+									<strong>Voir
+										<i class="fas fa-search-plus"></i>
+									</strong>
+								</a>
+							</h4>
+						</div>
+						<div class="card-body">
+
+              {# Paiement avec Stripe #}
+              <form id="payment-form" method="post" action="{{path('commande_createcommande', {'id': app.user.id})}}">
+              <input type="hidden" value="{{ montanttotal}}" name="total">
+                <div id="card-element"><!-- Elements will create form elements here -->
+                </div>
+                <button class="btn btn-primary float-right">
+                  <div class="spinner hidden" id="spinner"></div>
+                  <span id="button-text">Payer {{ montanttotal }} &euro;</span>
+                </button>
+                <div id="error-message" class=""><!-- Display error message to your customers here -->
+                </div>
+              </form>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</section>
+		<div class="form-group text-center">
+			<a href="{{path("foods_list")}}" class="btn btn-light mt-3">
+				<i class="fas fa-chevron-left"></i>
+				Retour sur la liste des menus</a>
+		</div>
+
+		<br>
+		<br>
+	</main>
+
+{% endblock %}
+
+{% block javascripts %}
+  <script>
+
+
+    {% if app_environement == 'dev' %}
+      var stripePublicKey = "{{ stripe_public_key_test }}";
+    {% endif %}
+
+    console.log(stripePublicKey);
+
+    
+    // A reference to Stripe.js initialized with a public API key.
+    const stripe = Stripe(stripePublicKey);
+
+    var elements = stripe.elements();
+
+    var card = elements.create('card');
+    //console.log(card);
+
+    //On affiche stripe
+    card.mount('#card-element');
+
+
+    //Si il y a erreur de frappe, on l'affiche
+    card.addEventListener('change', function(e){
+
+      var displayerror = document.getElementById('error-message');
+
+      if(e.error){
+        console.log(e.error.message)
+        displayerror.textContent = e.error.message;
+      }else{
+        displayerror.textContent = '';
+      }
+    });
+
+
+    //Quand on soumet le formulaire de paiement stripe
+    var form = document.getElementById('payment-form');
+
+    form.addEventListener('submit', function(event) {
+
+      //On empêche de soumettre l'évenement
+      event.preventDefault()
+
+      //On va récupérer le token dans l'element de stripe
+      stripe.createToken(card).then(function(result){
+         //Si il y a erreur dans la récupération de token, on envoie le message d'erreur
+         if(result.error){
+           var displayerror = document.getElementById('error-message')
+           displayerror.textContent = result.error.message;
+         }else{
+           console.log(result.token)
+
+           //on récupère le TOKEN et le mettre dans un <input> caché
+           stripeTokenHandler(result.token)
+         }
+      })
+
+    })
+
+
+
+
+      //Création de function qui récupère le token et le mettre dans l' <input>
+      function stripeTokenHandler(token){
+        var form = document.getElementById('payment-form')
+        var hiddenInput = document.createElement('input')
+        hiddenInput.setAttribute('type','hidden')
+        hiddenInput.setAttribute('name','stripeToken')
+        hiddenInput.setAttribute('value',token.id)
+        form.appendChild(hiddenInput)
+
+        console.log(form)
+        
+        //On soumet l'événement
+        form.submit()
+      }
+
+
+
+      //stripe.createPaymentMethod({
+      //  type: 'card',
+      //  card: cardElement,
+      //  billing_details: {
+      //    // Include any additional collected billing details.
+      //    name: 'Jenny Rosen',
+      //  },
+      //}).then(stripePaymentMethodHandler);
+
+
+
+
+
+
+  </script>
+{% endblock %}
+

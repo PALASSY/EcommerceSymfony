@@ -24,6 +24,7 @@ $('#addcollection-image').click(function () {
 });
 
 
+
 //Pour éviter le bug
 function updateCounter() {
   //Récupérer la longeur le data- en valeur dans un constante

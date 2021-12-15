@@ -80,6 +80,11 @@ class Food
      */
     private $category;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Commande::class, inversedBy="menu")
+     */
+    private $menucommandeur;
+
 
 
     public function __construct() 
@@ -101,7 +106,6 @@ class Food
             $this->slug = $slugify->slugify($this->menu);
         }
     }
-
 
 
 
@@ -244,6 +248,18 @@ class Food
     public function setCategory(string $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getMenucommandeur(): ?Commande
+    {
+        return $this->menucommandeur;
+    }
+
+    public function setMenucommandeur(?Commande $menucommandeur): self
+    {
+        $this->menucommandeur = $menucommandeur;
 
         return $this;
     }

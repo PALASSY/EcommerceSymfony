@@ -28,7 +28,7 @@
 				</div>
 				<div class="col text-center mt-2">
 					{% if food.author.tables|length >= 1  %}
-						<a href="{{path('foods_single',{'slug': food.slug})}}"  class="btn btn-success">
+						<a href="{{path('foods_single',{'slug': food.slug})}}"  class="btn btn-success" style="background-color:#B49C73">
 							<i class="fas fa-utensils"></i> 
 							{{food.author.tables|length}}
 								{% if food.author.tables|length > 1 %}

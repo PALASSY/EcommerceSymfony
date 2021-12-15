@@ -213,54 +213,54 @@ class AppFixtures extends Fixture
 
 
             //On va créer 5 commandes
-//            for ($k = 1; $k = mt_rand(0, 5); $k++) {
+            for ($k = 1; $k = mt_rand(0, 5); $k++) {
 
                 //Créer une nouvelle commande
-//                $commande = new Commande();
+                $commande = new Commande();
 
                 //Le commandeur c'est l'un des 10 authors
-//                $commandeur = $users[mt_rand(0, count($users) - 1)];
+                $commandeur = $users[mt_rand(0, count($users) - 1)];
 
                 //Le menu c'es le nouvel Objet Food()
-//                $menufood = $food;
+                $menufood = $food;
 
                 //La date de commande 
-//                $datecommande = $faker->dateTimeBetween('-3 months');
+                $datecommande = $faker->dateTimeBetween('-3 months');
 
                 //Le nombre de menu 
-//                $nbrmenu = mt_rand(1, 5);
+                $nbrmenu = mt_rand(1, 5);
 
                 //Le prix total de la commande 
-//                $prixtotal = $food->getPrice() * $nbrmenu;
+                $prixtotal = $food->getPrice() * $nbrmenu;
 
                 //Mode de paiement 
-//                $modepaiement = $faker->randomElement($choice);
+                $modepaiement = $faker->randomElement($choice);
 
                 //Etat de paiement 
-//                $etatpaiement = 1;
+                $etatpaiement = 1;
 
                 //Date de livraison
-//                $datelivraison = $faker->dateTimeBetween('-2 days');
+                $datelivraison = $faker->dateTimeBetween('-2 days');
 
                 //Lieu de livraison 
-//                $lieulivraison = $faker->address;
+                $lieulivraison = $faker->address;
 
                 //Il manque la date de création de commande, on le fera en construct dans l'Entity Commande()
 
 
                 //On va setter le nouvel Objet Commande()
-//                $commande->setCommandeur($commandeur)
-//                    ->setDatecommande($datecommande)
-//                    ->setNbrmenu($nbrmenu)
-//                    ->setPrixtotal($prixtotal)
-//                    ->setModepaiement($modepaiement)
-//                    ->setEtatpaiement($etatpaiement)
-//                    ->setDatelivraison($datelivraison)
-//                    ->setLieulivraison($lieulivraison)
-//                    //->setMenu($menufood)
-//                ;
-//                $manager->persist($commande);
-//            }
+                $commande->setCommandeur($commandeur)
+                    ->setDatecommande($datecommande)
+                    ->setNbrmenu($nbrmenu)
+                    ->setPrixtotal($prixtotal)
+                    ->setModepaiement($modepaiement)
+                    ->setEtatpaiement($etatpaiement)
+                    ->setDatelivraison($datelivraison)
+                    ->setLieulivraison($lieulivraison)
+                    //->setMenu($menufood)
+                ;
+                $manager->persist($commande);
+            }
         }
 
 

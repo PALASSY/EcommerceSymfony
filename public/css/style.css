@@ -13,9 +13,12 @@ noir absolu = #0000  pour footer
  */
 
 
+
+
  /*GENERAL*/
 body {
     overflow-x: hidden;
+		margin-left:-1em;
 }
 .row{margin-left: 5px;}
 h2 {
@@ -511,3 +514,9 @@ span.carre i.fas {
 #footer p span{
 	color: #B49C73;
 }
+
+
+
+
+/*Silder home.html.twig*/
+.slider-container{width: 100%;overflow: hidden;}

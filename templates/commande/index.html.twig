@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande-Shangrila{% endblock %}
+
+{% block body %}
+<div class="container my-5">
+  {# Si il y de la commande, on l'affiche #}
+  {% if commandelisible | length > 0 %}
+
+    {% if commandelisible | length > 1 %}
+        <h1 class= "text-center">Mes commandes <i class="fas fa-concierge-bell"></i></h1>
+    {% else %}
+        <h1 class= "text-center">Ma commande <i class="fas fa-concierge-bell"></i></h1>
+    {% endif %}
+
+        {{app.session|length}}
+        {{app.user|length}}
+      <table class="table text-center mt-5">
+          <thead>
+              <tr>
+                  <th>N°</th>
+                  <th class="text-left">Menu</th>
+                  <th>Prix</th>
+                  <th>Quantité</th>
+                  <th>Total</th>
+                  <th></th>
+              </tr>
+          </thead>
+          <tbody>
+             {% for item in commandelisible %}
+                <tr>
+                    <td>{{item.food.id}}</td>
+                    <td class="row">
+                        <div>
+                             <img style="height: 50px; width:60px; display: block;" src="{{item.food.coverimage}}" alt="Image" class="img-fluid">
+                        </div>
+                        <div class="pl-3">
+                            {{item.food.menu|slice(0,30)}}
+                        </div>
+                    </td>
+                    <td>{{item.food.price}} &euro;</td>
+                    <td>
+                        <a href="{{path('commande_removemenu',{'id':item.food.id})}}" class="minusmenu"><i class="fas fa-minus-circle" style="color:#B49C73"></i></a>
+                        <input type="text" value="{{item.quantity}}"  class="nbrmenu text-center" style="width:15%">
+                        <a href="{{path('commande_add',{'id':item.food.id})}}" class="plusmenu"><i class="fas fa-plus-circle" style="color:#B49C73"></i></a></td>
+                    <td>{{item.food.price * item.quantity}} &euro;</td>
+                    <td>
+                        <a href="{{path('commande_remove',{'id':item.food.id})}}"><i class="fas fa-trash" style="color:red"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+          </tbody>
+          <tfoot style="font-weight:bold">
+              <td colspan="3" class="text-left">TOTAL</td>
+              <td><input type="text" class="panier text-center" value="{{ nbrmenu }}" style="width:15%; border:none;font-weight:bold"></td>
+              <td>{{ total }} &euro;</td>
+              <td></td>
+          </tfoot>
+      </table>
+      <br><br>
+      <a class="btn btn-primary float-left ajout_panier" data-price="" data-url="" style="background-color:#fff;color:black" href="{{path('foods_list')}}">Continuer mes achats</a>
+
+        {% if app.user %}
+            <a class="btn btn-primary float-right btn-lg ajout_panier" data-price="" data-url="" style="background-color:#B49C73;color:black" href="{{path('commande_showAdress')}}">Valider ma commande</a>
+        {% else %}
+            <a class="btn btn-primary float-right btn-lg ajout_panier" data-price="" data-url="" style="background-color:#B49C73;color:black" href="{{path('account_login')}}">Valider ma commande</a>
+        {% endif %}
+
+        <br><br><br>
+  {% else %}
+
+
+<h1 class="text-center py-5" style="color:red">
+    Surprise, vous n'avez pas encore de commande 
+	<i class="fas fa-gift"></i>
+</h1>
+<h2 class="text-center">
+    <a href="{{path('foods_list')}}">Remplissez votre plateau <i class="fas fa-utensils"></i></h2>
+    </a>
+
+  {% endif %}
+
+
+</div>
+{% endblock %}

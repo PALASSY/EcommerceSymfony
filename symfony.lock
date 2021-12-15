@@ -136,6 +136,9 @@
     "phpdocumentor/type-resolver": {
         "version": "1.5.1"
     },
+    "phpmailer/phpmailer": {
+        "version": "v6.5.3"
+    },
     "phpspec/prophecy": {
         "version": "1.14.0"
     },
@@ -242,6 +245,9 @@
         "files": [
             "./config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "stripe/stripe-php": {
+        "version": "v7.103.0"
     },
     "symfony/asset": {
         "version": "v5.3.11"

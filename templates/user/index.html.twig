@@ -11,16 +11,16 @@
 			<div class="col-3 mt-5">
 				<img src="{{user.avatar}}" alt="avatar de {{user.fullname}}" class="avatar">
 				<br>
-				<div class="badge badge-primary ml-4">{{user.food|length}}
+				<div class="badge badge-primary ml-4" style="background-color:red">{{user.food|length}}
 					{% if user.food|length >1 %}
-						menus
+						menus <i class="fas fa-hamburger"></i>
 					{% else %}
-						menu
+						menu <i class="fas fa-hamburger"></i>
 					{% endif %}
 				</div>
 			</div>
 			<div class="col-9 my-5">
-				<h1>{{user.fullname}}</h1>
+				<h1>Le chef: {{user.fullname}}</h1>
 				{#{{ dump(app.user) }}#}
 				{#{{ dump(user) }}#}
 				{# Vérifier si l'utilisateur connecté est le propriétaire du page de profil #}
@@ -53,7 +53,13 @@
 				{% for food in user.food %}
 
 					{# Ramarque idem dans templates/food/index.html.twig : pas besoin de re-définir la variable GLOBAL parceque la boucle indique déjà le nom de la varibale (food) #}
-					{% include 'food/_food.html.twig' %}
+					
+						{% if food.stock < 1 %}
+							{% include "food/allfood/_foodenrupturestock.html.twig" with {food:food} only %}
+						{% else %}						
+							{# Afficher tous les food() #}
+							{% include "food/allfood/_foodenstock.html.twig" with {food:food} only %}
+						{% endif %}
 
 				{% endfor %}
 			</div>

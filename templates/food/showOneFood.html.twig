@@ -6,16 +6,16 @@
 
 {% block body %}
 
-	<div style="background-image:url({{food.coverImage}})" class="titreAd mt-5 overlaysmall">
+	<div style="background-image:url({{food.coverImage}}); height:353px;" class="titreAd overlaysmall">
 
 			<div class="container dataContainer">
 				<h1 class="show">{{food.menu}}</h1>
 				<p>{{food.description|striptags|slice(0,40) ~ "..."}}</p>
 				<p><strong>{{food.price}}	&euro;</strong></p>
 
-				<div class="row">
+				<div class="row" style="margin-top:50px;">
 					<div class="col">
-{#						<a href="{{path('commande_add',{'id':food.id})}}" class="btn btn-warning mb-3 mx-3"><i class="fas fa-concierge-bell"></i> 	Commander</a> #}
+						<a href="{{path('commande_add',{'id':food.id})}}" class="btn btn-warning mb-3 mx-3"><i class="fas fa-concierge-bell"></i> 	Commander</a> 
 					</div>
 
 					{% if food.author.tables|length > 0 %}
@@ -23,7 +23,7 @@
 							{# Affichage des tables à réserver #}
 							<div class="dropdown show" id="dropdownshow">
 								<a class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink"  	data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									{{food.author.tables|length}} {% if food.author.tables|length > 1 %}tables disponibles {% 	else %}
+									{{food.author.tables|length}} {% if food.author.tables|length > 1 %}tables disponibles {% else %}
 										table disponible {% endif %}
 								</a>
 
@@ -65,14 +65,13 @@
 	</div>
 
 	<div class="container">
-		<div class="row">
-
-			<div class="col-md-8 mb-3">
+			<div>
 				{# |raw veut dire sans balise HTML #}
-				{{food.description|raw}}
-				
+				<div class="mb-5">
+					{{food.description|raw}}
+				</div>
 
-				<div id="carouselExampleIndicators" class="carousel slide mt-5" data-bs-ride="carousel">
+				<div id="carouselExampleIndicators" class="carousel slide mx-5" data-bs-ride="carousel">
 					<div class="carousel-indicators">
 						{# Ici on récupére les images secondaires spécialement pour les indicateurs et le mode active #}
 						{% for imageentity in food.images %}
@@ -86,7 +85,7 @@
 						{% for imageentity in food.images %}
 							{# ici tous les <div> sont en mode active, alors on utilise => loop.first càd seul le 1er variable est en mode active #}
 							<div class="carousel-item {% if loop.first  %}active{% endif %}">
-								<img src="{{imageentity.url}}" class="d-block w-100" alt="...">
+								<img src="{{imageentity.url}}" class="d-block w-100" alt="..." style="width:60%;">
 								<div class="carousel-caption d-none d-md-block">
 									<h1 class="h4 pt-5">{{food.menu}}</h1>
 									<p>{{imageentity.caption}}</p>
@@ -156,7 +155,7 @@
 
 			{# A partir d'ici on utilise L'Entity User.php #}
 			<div class="col">
-				 {#Pour éviter la répétion de la méthode (food.author) on va crée une varible moins  longue 
+				 {#Pour éviter la répétion de la méthode (food.author) on va crée une varible moins  longue #}
 				{% set f = food.author %}
 				{% set url = path('user_single',{'slug':f.slug}) %}
 				<div class="row">
@@ -170,7 +169,7 @@
 							<h4>{{f.fullname}}</h4>
 						</a>
 						 {#Pour avoir le nombre de menu publiées par l'author, on passe sur la variable ads de l'Entity User.php qui retourne un tableau et on stipule qu'on veut récupére la longeur de ce tableau #}
-{#						<span class="bg bg-warning">{{f.food|length}}
+						<span class="bg bg-warning">{{f.food|length}}
 							{% if f.food|length >1  %}
 								menus
 							{% else %}
@@ -178,7 +177,7 @@
 							{% endif %}
 						</span>
 						<span> et </span>
-						{# On va récupérer le nombre de tables de l'author de menu 
+						{# On va récupérer le nombre de tables de l'author de menu #}
 						<span class="bg bg-warning">{{f.tables|length}}
 							{% if f.tables|length > 1 %}
 								tables
@@ -188,9 +187,8 @@
 						</span>
 					</div>
 				</div>
-				<p>{{f.introduction}}</p>#}
+				<p>{{f.introduction}}</p>
 
-			</div>
 		</div>
 	</div>
 

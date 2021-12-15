@@ -21,12 +21,18 @@
 		        <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">#}
 
 		{# CSS #}
-		<link rel="stylesheet" href="/css/style.css" type="text/css"> <link
-		rel="stylesheet" href="/css/app.css" type="text/css">
+		<link rel="stylesheet" href="/css/style.css" type="text/css">
+		<link rel="stylesheet" href="/css/app.css" type="text/css">
+		{# CSS STRIPE #}
+		<link rel="stylesheet" href="/css/stripe.css" type="text/css">
 
 		{# Google Fonts #}
 		<link
 		href="https://fonts.googleapis.com/css2?family=Lato&family=Lora:ital,wght@1,500&display=swap" rel="stylesheet">
+
+
+		{# Paiement avec Stripe #}
+		<script src="https://js.stripe.com/v3/"></script>
 
 		{# JS #}
 		<script src="/js/jquery.compact.js"></script>
@@ -66,6 +72,7 @@
 
 		{# footer #}
 		{% include "inc/footer.html.twig" %}
+
 
 		{% block javascripts %}
 			{#{{ encore_entry_script_tags('app') }}#}

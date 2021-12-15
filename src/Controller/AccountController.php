@@ -190,4 +190,16 @@ class AccountController extends AbstractController
     {
         return $this->render("account/reservations.html.twig");
     }
+
+
+    /**
+     * Page qui affiche toutes les commandes
+     * @Route("account/commandes", name="account_commandes")
+     *
+     * @return Response 
+     */
+    public function commandes()
+    {
+        return $this->render("account/commandes.html.twig");
+    }
 }

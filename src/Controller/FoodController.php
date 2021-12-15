@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Data\searchData;
 use App\Entity\Food;
 use App\Form\FoodType;
+use App\Form\SearchType;
 use App\Repository\FoodRepository;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,10 +21,26 @@ class FoodController extends AbstractController
      * Page qui affiche tous les menus(plats/food...)
      * @Route("/foods", name="foods_list")
      */
-    public function index(FoodRepository $foodRepo): Response
+    public function index(FoodRepository $foodRepo,Request $request): Response
     {
+        $data = new searchData();
+
+        $form = $this->createForm(SearchType::class,$data);
+        $form->handleRequest($request);
+        //dd($data);
+
+        if (!empty($foodRepo->findSearch($data))) {
+            //Récupération des food par tri
+            $foods = $foodRepo->findSearch($data);
+            //dd($foods);..
+        }else{
+            $foods = $foodRepo->findAll();
+            $this->addFlash("danger","Votre recherche n'a pas aboutit");
+        }
+
         return $this->render('food/index.html.twig', [
-            'foods' => $foodRepo->findAll()
+            'foods' => $foods,
+            'form' => $form->createView()
         ]);
     }
 

@@ -1,8 +1,9 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
+<div>
 
-	<section id="details" class="row">
+	<section id="details" class="row" style="margin-left:-0.5em">
 		<div class="details col-md-8 offset-md-2">
 			<h1>Interpellata</h1>
 			<h2>paucis indignitatis</h2>
@@ -58,117 +59,94 @@
 	<section id="plats" class="row">
 		<h2>Cum Totidemque</h2>
 		<h4>paucis indignitatis.</h4>
+
 		<div class="row justify-content-center">
+
 			<div class="div-article col-md-2">
-				<article>
-					<!--article 1 colonne 1-->
-					<img src="img/2.jpg" alt="cupcake" class="img-fluid">
-				</article>
-				<article>
-					<!--article 2 colonne 1-->
-					<img src="img/delicious_3.jpg" alt="légumes poëlés" class="img-fluid">
-				</article>
-			</div>
+					<article>
+						<!--article 1 colonne 1-->
+						<a href="{{path('foods_single', {'slug':plat.slug})}}">
+							<img src="{{plat.coverImage}}" alt="cupcake" class="img-fluid">
+						</a>
+					</article>
+					<article>
+						<!--article 1 colonne 1-->
+						<a href="{{path('foods_single', {'slug':entree.slug})}}">
+							<img src="{{entree.coverImage}}" alt="cupcake" class="img-fluid">
+						</a>
+					</article>
+			</div><!--end image plat-->
+
 			<div class="div-article col-md-2">
 				<article>
 					<!--article 1 colonne 2-->
-					<h5>Petit Déjeuner</h5>
-					<p>orem ipsum dolor sit amet,<br>
-						consectetur adipiscing elit,sed do eiusmod tempor
-						    											adipiscing elit,sed do eiusmod tempor</p>
-					<form>
-						<input type="button" name="button" value="Commander">
-					</form>
+					<h5>{{plat.category|capitalize}}</h5>
+					<p>{{plat.description|striptags|slice(0,120) ~ "..."}}</p>
+					<div style="border:1px solid #C1A57B;width:40%;text-align:center">
+						<a href="{{path('foods_single', {'slug':plat.slug})}}" style="text-decoration:none; color:#C1A57B;font-size:17px">Commander</a>
+					</div>
 				</article>
 				<article>
 					<!--article 2 colonne 2-->
-					<h5>Petit Déjeuner</h5>
-					<p>orem ipsum dolor sit amet,<br>
-						consectetur adipiscing elit,sed do eiusmod tempor
-						    											adipiscing elit,sed do eiusmod tempor</p>
-					<form>
-						<input type="button" name="button" value="Commander">
-					</form>
+					<h5>{{entree.category|capitalize}}</h5>
+					<p>{{entree.description|striptags|slice(0,120) ~ "..."}}</p>
+					<div style="border:1px solid #C1A57B;width:40%;text-align:center">
+						<a href="{{path('foods_single', {'slug':entree.slug})}}" style="text-decoration:none; color:#C1A57B;font-size:17px">Commander</a>
+					</div>
 				</article>
-			</div>
+			</div><!--end titre & description--> <!--Fin partie gauche-->
+
 			<div class="div-article div-article col-md-2">
-				<article>
-					<!--article 1 colonne 3-->
-					<img src="img/delicious_2.jpg" alt="cup of tea" class="img-fluid">
-				</article>
-				<article>
-					<!--article 2 colonne 3-->
-					<img src="img/delicious_4.jpg" alt="plat" class="img-fluid">
-				</article>
+					<article>
+						<!--article 1 colonne 3-->
+						<a href="{{path('foods_single', {'slug':dessert.slug})}}">
+							<img src="{{dessert.coverImage}}" alt="cup of tea" class="img-fluid">
+						</a>
+					</article>
+						<article>
+						<!--article 1 colonne 3-->
+						<a href="{{path('foods_single', {'slug':plat.slug})}}">
+							<img src="{{plat.coverImage}}" alt="cup of tea" class="img-fluid">
+						</a>
+					</article>
 			</div>
+			
 			<div class="div-article col-md-2">
 				<article>
 					<!--article 1 colonne 4-->
-					<h5>Petit Déjeuner</h5>
-					<p>orem ipsum dolor sit amet,
-						<br>consectetur adipiscing elit,sed do eiusmod tempor
-						    											adipiscing elit,sed do eiusmod tempor</p>
-					<form>
-						<input type="button" name="button" value="Commander">
-					</form>
+					<h5>{{dessert.category|capitalize}}</h5>
+					<p>{{dessert.description|striptags|slice(0,120) ~ "..."}}</p>
+					<div style="border:1px solid #C1A57B;width:40%;text-align:center">
+						<a href="{{path('foods_single', {'slug':dessert.slug})}}" style="text-decoration:none; color:#C1A57B;font-size:17px">Commander</a>
+					</div>
 				</article>
 				<article>
 					<!--article  colonne 4-->
-					<h5>Petit Déjeuner</h5>
-					<p>orem ipsum dolor sit amet,
-						<br>consectetur adipiscing elit,sed do eiusmod tempor
-						    											adipiscing elit,sed do eiusmod tempor</p>
-					<form>
-						<input type="button" name="button" value="Commander">
-					</form>
+					<h5>{{plat.category|capitalize}}</h5>
+					<p>{{plat.description|striptags|slice(0,120) ~ "..."}}</p>
+					<div style="border:1px solid #C1A57B;width:40%;text-align:center">
+						<a href="{{path('foods_single', {'slug':plat.slug})}}" style="text-decoration:none; color:#C1A57B;font-size:17px">Commander</a>
+					</div>
 				</article>
 			</div>
-		</div>
+		</div><!--end div plat-->
+
+
 		<h2>Nos Plats</h2>
 		<h4>Lorem ipsum dolor sit amet edit.</h4>
 	</section>
 
 	<section id="photos" class="row">
-		<div class="photos-article col-md-3">
-			<article>
-				<!--article 1 colonne 1-->
-				<img src="img/1.jpg" alt="plat">
-			</article>
-			<article>
-				<!--article 2 colonne 1-->
-				<img src="img/5.jpg" alt="hamburger">
-			</article>
-		</div>
-		<div class="photos-article col-md-3">
-			<article>
-				<!--article 1 colonne 2-->
-				<img src="img/2.jpg" alt="plat">
-			</article>
-			<article>
-				<!--article 2 colonne 2-->
-				<img src="img/6.jpg" alt="hamburger">
-			</article>
-		</div>
-		<div class="photos-article col-md-3">
-			<article>
-				<!--article 1 colonne 3-->
-				<img src="img/3.jpg" alt="plat">
-			</article>
-			<article>
-				<!--article 2 colonne 3-->
-				<img src="img/7.jpg" alt="hamburger">
-			</article>
-		</div>
-		<div class="photos-article col-md-3">
-			<article>
-				<!--article 1 colonne 4-->
-				<img src="img/delicious_4.jpg" alt="plat">
-			</article>
-			<article>
-				<!--article 2 colonne 4-->
-				<img src="img/8.jpg" alt="hamburger">
-			</article>
-		</div>
+		{% for images in foodImages %}
+			<div class="photos-article col-md-3">
+				<article>
+					<!--article 1 colonne 1-->
+					<a href="#">
+						<img src="{{images}}" alt="plat">
+					</a>
+				</article>
+			</div>
+		{% endfor %}
 	</section>
 
 	<section id="supra" class="row">
@@ -338,4 +316,18 @@
 		</div>
 	</section>
 
+<!--Le slider-->
+<div class="container" style="max-width: 1140px;margin: 150px auto;">
+	<!--width = 100% * 6(nombre de .slide)-->
+	<div class="slider">
+		<!--width = 1140px-->
+		{% for images in foodImages %}
+			<div class="slide" style="float: left;">
+				<img src="{{images}}" alt="" style="max-width: 100%;">
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+</div>
 {% endblock %}

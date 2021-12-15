@@ -1,6 +1,6 @@
 <header class="row justify-content-center">
-	<div class="bandeau1"></div>
-	<div class="bandeau2 row">
+	<div class="bandeau1" style="margin-left:-1em;"></div>
+	<div class="bandeau2 row"style="margin-left:-1em;">
 		<div class="col-md-4 telephone">
 			<div class="arrow"></div>
 			<span>
@@ -27,7 +27,7 @@
 						<ul class="navbar-nav ml-auto">
 							<li class="nav-item dropdown" role="group" aria-label="dropdown">
 								<a href="#" class="nav-link dropdown-toggle" id="accountDropdownlink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<img src="{{app.user.avatar}}" alt="Avatar de {{app.user.fullname}}" class="avatar avatar-medium">
+									<img src="{{app.user.avatar}}" alt="Avatar de {{app.user.fullname}}" class="avatar avatar-small">
 									{{app.user.fullname}}
 								</a>
 
@@ -44,9 +44,9 @@
 										<i class="fas fa-pen-square"></i>
 										Modifier mon profil</a>
 									<div class="dropdown-divider"></div>
-									<a href="#" class="dropdown-item">
+									<a href="{{path('account_commandes')}}" class="dropdown-item">
 										<i class="fas fa-concierge-bell"></i>
-										Ma commande</a>
+										Mes commandes</a>
 									<div class="dropdown-divider"></div>
 									<a href="{{path('account_reservations')}}" class="dropdown-item">
 										<i class="fas fa-utensils"></i>
@@ -55,14 +55,19 @@
 							</li>
 						</ul>
 					</span>
-					<span class="mt-4 ml-3">
+					<span class="ml-3"  style="margin-top: 2.1em">
 						<a href="{{path("account_logout")}}">
 							<i class="fas fa-sign-in-alt">
 								Se déconnecter
 							</i>
 						</a>
 					</span>
-{#					<div class="js-cartlink float-right ml-3" style="margin-top:2.13em;" data-url="{{path('panier')}}"></div> #}
+					<span class="panierconnecte">
+						<a href="{{path('commande_index')}}">
+							<i class="fa fa-shopping-cart"></i>
+							<span class="js-cartlink" data-url="{{path('panier')}}" style="background-color:red;"></span>
+						</a> 
+					</span>
 				</div>
 			{% else %}
 				<div class="email-div2">
@@ -81,60 +86,67 @@
 							<i class="far fa-file-word"></i>
 							En</a>
 					</span>
-{#					<div class="cart-link float-right ml-3" data-url="{{path('panier')}}"></div> #}
+					<span class="paniernonconnecte">
+						<a href="{{path('commande_index')}}" >
+							<i class="fa fa-shopping-cart"></i>
+							<span class="js-cartlink" data-url="{{path('panier')}}" style="background-color:red;"></span>
+						</a>
+					</span>
 				</div>
 			{% endif %}
 		</div>
 	</div>
 
-	<div class="bandeau3 flex col-md-8 offset-md-2">
-		<img src="{{asset('img/logo.png')}}" alt="logo" titre="ShanGrila">
-	</div>
-	<div class="bandeau4 flex col-md-8 offset-md-2">
-		<nav class="navbar navbar-expand-xl navbar-dark bg-header">
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="nav">
-					<li class="nav-item">
-						<a class="nav-link active" href="{{path('homepage')}}">Accueil</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link active" href="{{path("foods_list")}}">Menu</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link active" href="#">Réservation</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link active" href="#">Galérie</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link active" href="#">Bloc</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link active" href="#">Boutique</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link active" href="#">Contact</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link active" href="#">A Propos</a>
-					</li>
+	<div style="background-color: white; margin-left:-1em;">
+		<div class="bandeau3 flex col-md-8 offset-md-2">
+			<img src="{{asset('img/logo.png')}}" alt="logo" titre="ShanGrila">
+		</div>
+		<div class="bandeau4 flex col-md-8 offset-md-2">
+			<nav class="navbar navbar-expand-xl navbar-dark bg-header">
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="nav">
+						<li class="nav-item">
+							<a class="nav-link active" href="{{path('homepage')}}">Accueil</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="{{path("foods_list")}}">Menu</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="#">Réservation</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="#">Galérie</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="#">Bloc</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="#">Boutique</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="#">Contact</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="#">A Propos</a>
+						</li>
 
-					<li class="nav-item">
-						<a class="nav-link active" href="#">
-							<span class="span-i">
-								<i class="fas fa-search"></i>
-							</span>
-							<span class="span-i2">
-								<i class="fas fa-grip-lines"></i>
-							</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
+						<li class="nav-item">
+							<a class="nav-link active" href="#">
+								<span class="span-i">
+									<i class="fas fa-search"></i>
+								</span>
+								<span class="span-i2">
+									<i class="fas fa-grip-lines"></i>
+								</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</div>
 	</div>
 </header>
 

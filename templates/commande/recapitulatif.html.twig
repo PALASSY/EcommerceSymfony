@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Récapitulatif-commande-Shangrila
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+  <h1 class="text-center mb-5">Récapitulatif de votre commande</h1>
+
+  <div class="card">
+    <div class="card-header">
+    
+      <div class="row justify-content-between">
+
+        <div class="row justify-content-around">
+          <div class="col">
+            <h1 class="h5">Commande <small>éffectuée le :</small></h1>
+            <p>{{commande.datecommande|date("d F Y", "Europe/Paris")}}</p>
+          </div>
+          <div class="text-center">
+            <h1 class="h5">Montant</h1><br>
+            <p>{{commande.prixtotal}} &euro;</p>
+          </div>
+          <div class="col text-center">
+            <h1 class="h5">Livraison à </h1><br>
+            <a href="" onclick="info('{{commande.lieulivraison}}')">{{commande.commandeur.fullname}}</a>
+          </div>
+        </div>
+
+        <div class="mr-5">
+          <h1 class="h4 mb-4">N° de commande</h1>
+          <p class="text-center">{{commande.id}}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="row">
+
+        <div class="col-md-8">
+          <h5 class="card-title">Livré le : {{ commande.datelivraison|date('d F Y')}}</h5>
+          <p class="card-text" style="margin-top:-10px;">Signé par : {{commande.commandeur.firstname|upper}} {{commande.lieulivraison}}</p>
+          <div class="row">
+
+            <div class="col-md-4"  style="background-color:red">
+              <img src="" alt="">
+            </div>
+
+            <div class="col">
+              <p>Nombre de menu : {{commande.nbrmenu}}</p>
+              <div class="row">
+                <div>
+                  <a href="#" class="btn btn-warning"><i class="fas fa-shopping-basket"></i>Acheter à nouveau</a>
+                </div>
+                <div>
+                  <a href="#" class="btn btn-light">Afficher votre commande</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col">
+
+          <div class="d-flex flex-column align-items-end">
+            <div class="mb-4">
+              <button class="btn btn-light" style="border: 1px solid black;width:230px">Suivre votre colis</button>
+            </div>
+            <div class="mb-2">
+              <button class="btn btn-warning" style="border: 1px solid black;width:230px">Problème avec la commande</button>
+            </div>
+            <div class="mb-2">
+              <button class="btn btn-light" style="border: 1px solid black;width:230px">Retourner les articles</button>
+            </div>
+            <div class="mb-2">
+              <button class="btn btn-light" style="border: 1px solid black;width:230px">Partager le reçu de l'article</button>
+            </div>
+            <div class="">
+              <button class="btn btn-light" style="border: 1px solid black;width:230px">Commenter le produit</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}

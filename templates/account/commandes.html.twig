@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes commandes - Shangrila
+{% endblock %}
+
+
+{% block body %}
+
+	<div class="container mt-5">
+		<div class="bg-success card text-center">
+			<h2>Mes
+				{{app.user.commandeurMenu|length}}
+				commandes</h2>
+		</div>
+		{# On va récupérer toutes les commandes de l'user connecté #}
+		{% for resa in app.user.commandeurMenu %}
+
+			<div class="row border-bottom border-light mt-5 mb-5">
+          <div class="col-md-4">
+            <img src="#" alt="Photo de la commande" class="img-fluid">
+          </div>
+
+				<div class="col-md-8">
+					<h4 class="h5">Montant de la commande {{resa.prixtotal}} &euro;</h4>
+
+					{# avis(commentaire) d'un author(reservateur) par rapport à une annonce 
+										<div>
+											{% set comment = booking.ad.commentFromAuthor(app.user) %}
+											{% set moyenne = booking.ad.avarageRatings %}
+											{% if comment is not null %}
+												<strong>Note que j'ai attribué:
+												</strong>
+												{% include "inc/rating.html.twig" with {'rating':comment.rating} %}<br>
+												<strong>Note moyenne de l'annonce:
+												</strong>
+												{% include "inc/rating.html.twig" with {'rating':moyenne} %}
+											{% else %}
+												<p>Vous n'avez pas encore donné des notes(avis) pour ce séjour</p>
+											{% endif %}
+										</div>#}
+
+					<p>Commande n°
+						{{resa.id}}</p>
+					<p>Date de la commande:
+						{{resa.datecommande | date('d/m/Y')}}</p>
+          <p>Nombre
+            {% if resa.nbrmenu > 1 %}
+              {{resa.nbrmenu}} menus
+            {% else %}
+               {{resa.nbrmenu}} menu
+             {% endif %}
+           </p>
+           <p>Adresse de livraison
+						{{resa.lieulivraison}}</p>
+					<p class="mb-3">
+						<a href="{{path('reservation_show', {'id':resa.id})}}" class="btn btn-success btn-small">Voir détails de la réservation</a>
+					</p>
+				</div>
+			</div>
+
+		{% endfor %}
+
+
+	</div>
+	<br><br><br>
+{% endblock %}
+
