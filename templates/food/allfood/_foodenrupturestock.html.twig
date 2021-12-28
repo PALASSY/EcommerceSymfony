@@ -63,13 +63,12 @@
 		</div>
 		<div
 			class="card-footer text-muted text-center">
-			{#{% if ad.comments|length > 0 %}
-										{% include 'inc/rating.html.twig' with 'rating' : ad.avarageRatings } %}
-										sur {
-										{ad.comments|length}} avis
-									{% else %}
-									{% endif %}#}
-			<span>Pas encore noté</span>
+			{% if food.comments|length > 0 %}
+				{% include 'inc/rating.html.twig' with {'rating' : food.avarageRatings } %}
+				sur {{food.comments|length}} avis
+			{% else %}
+				<span>Pas encore noté</span>
+			{% endif %}
 		</div>
 	</div>
 </div>

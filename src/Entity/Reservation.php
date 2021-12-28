@@ -38,7 +38,7 @@ class Reservation
 
     /**
      * @ORM\Column(type="datetime")
-     * @Assert\GreaterThan("+1 hours", message="Aucune table disponible, chercher un autre créneau horaire")
+     * @Assert\GreaterThan("+1 hours", message="Aucune table disponible, chercher un autre créneau horaire", groups="front")
      * @Assert\Type(type="\DateTimeInterface", message="Le format doit être une date")
      * @Assert\NotNull
      */

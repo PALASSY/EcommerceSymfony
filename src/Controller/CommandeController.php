@@ -261,8 +261,17 @@ class CommandeController extends AbstractController
 
 
 
-
-    
+    /**
+     * Récupération d'une seule commane selon l'ID
+     * @Route("/commande/{id}", name="commande_showOneCommande")
+     * @param [type] $id
+     * @param Commande $commande
+     * @return Response
+     */
+      public function showoneCommande($id,Commande $commande)
+      {
+          return $this->render("commande/showOneCommande.html.twig",['commande'=>$commande]);
+      }  
 
 }
 

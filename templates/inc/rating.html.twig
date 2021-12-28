@@ -1,0 +1,13 @@
+{# rating = variable GLOBAL #}
+
+{# Affichage des étoiles(commentaires) #}
+{# templates/ad/show.html.twig #}
+
+	{% for i in 1..5 %}
+	{# Puis dire que si i <= le nombre de la note(commentaire) étoiles pleines ++ #}
+		{% if i <= rating  %}
+			<i class="fas fa-star"> </i>
+		{% else %}
+			<i class="far fa-star"></i>
+		{% endif %}
+	{% endfor %}

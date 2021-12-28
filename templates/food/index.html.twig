@@ -4,25 +4,27 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container">
+	<div class="container mt-5" style="padding:0;">
 		<h1 class="my-5 mt-3 text-center">Nos menus
 			<i class="fas fa-hamburger"></i>
 		</h1>
 		<div class="row">
 		
-			<div class="col-md-2" id="categoryMenu">
+			<div class="col-md-2" id="categoryMenu" style="padding-left:0">
 				{% include "food/index/_filtre.html.twig" with {form:form} only %}
 			</div>
 
-			<div class="col-md-10" id="containerMenus" style="border-radius:5px;padding:0;">
-				<div class="row mt-4">
+			<div class="col-md-10" style="padding-right:0;padding-left:0; width:100%">
+				<div class="row">
 					{% for food in foods %}
-						{% if food.stock < 1 %}
+						<div class="col-md-4 mt-4" style="height:680px">
+						 {% if food.stock < 1 %}
 							{% include "food/allfood/_foodenrupturestock.html.twig" with {food:food} only %}
 						{% else %}						
 							{# Afficher tous les food() #}
 							{% include "food/allfood/_foodenstock.html.twig" with {food:food} only %}
-						{% endif %}
+						 {% endif %}
+						</div>
 					{% endfor %}
 				</div>
 			</div>

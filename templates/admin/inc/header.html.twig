@@ -1,24 +1,24 @@
 <header class="row justify-content-center" id="header">
-	<div class="bandeau1"></div>
-	<div class="bandeau2 row"style="margin-left:-1em;">
+	<div class="bandeauadmin1"></div>
+	<div class="bandeau2 row" style="margin-left:-1em;">
 		<div class="col-md-4 telephone">
 			<div class="arrow"></div>
 			<span>
 				<a href="#">
-					<i class="fas fa-phone-alt"></i>
-					00-000-0000</a>
+					<i class="fas fa-chart-line"></i>
+					Tableau de bord</a>
 			</span>
 			<span>
 				<a href="#">
-					<i class="fas fa-phone-alt"></i>
-					00-000-0000</a>
+					<i class="fas fa-user-cog"></i>
+					Administrateur</a>
 			</span>
 		</div>
-		<div class="col-md-8 email">
+		<div class="col-md-8 emailadmin" style="padding-right: 15em;">
 			<div>
-				<a href="#">
-					<i class="far fa-envelope"></i>
-					email@email.fr</a>
+				<a href="{{path('homepage')}}">
+					<i class="far fa-eye"></i>
+					Voir le site</a>
 			</div>
 
 			{% if app.user %}
@@ -35,38 +35,16 @@
 									<a href="{{path('foods_create')}}" class="dropdown-item">
 										<i class="fas fa-pizza-slice"></i>
 										Créer un menu</a>
-									<div class="dropdown-divider"></div>
-									<a href="{{path('account_userConnect')}}" class="dropdown-item">
-										<i class="fas fa-user-alt"></i>
-										Mon profil</a>
-									<div class="dropdown-divider"></div>
-									<a href="{{path('account_profile')}}" class="dropdown-item">
-										<i class="fas fa-pen-square"></i>
-										Modifier mon profil</a>
-									<div class="dropdown-divider"></div>
-									<a href="{{path('account_commandes')}}" class="dropdown-item">
-										<i class="fas fa-concierge-bell"></i>
-										Mes commandes</a>
-									<div class="dropdown-divider"></div>
-									<a href="{{path('account_reservations')}}" class="dropdown-item">
-										<i class="fas fa-utensils"></i>
-										Mes Réservations</a>
 								</div>
 							</li>
 						</ul>
 					</span>
-					<span class="ml-3"  style="margin-top: 2.1em">
+					<span class="ml-3" style="margin-top: 2.1em">
 						<a href="{{path("account_logout")}}">
 							<i class="fas fa-sign-in-alt">
 								Se déconnecter
 							</i>
 						</a>
-					</span>
-					<span class="panierconnecte">
-						<a href="{{path('commande_index')}}">
-							<i class="fa fa-shopping-cart"></i>
-							<span class="js-cartlink" data-url="{{path('panier')}}" style="background-color:red;"></span>
-						</a> 
 					</span>
 				</div>
 			{% else %}
@@ -86,12 +64,6 @@
 							<i class="far fa-file-word"></i>
 							En</a>
 					</span>
-					<span class="paniernonconnecte">
-						<a href="{{path('commande_index')}}" >
-							<i class="fa fa-shopping-cart"></i>
-							<span class="js-cartlink" data-url="{{path('panier')}}" style="background-color:red;"></span>
-						</a>
-					</span>
 				</div>
 			{% endif %}
 		</div>
@@ -110,28 +82,28 @@
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="nav">
 							<li class="nav-item">
-								<a class="nav-link active" href="{{path('homepage')}}">Accueil</a>
+								<a class="nav-link active" href="#">Tableau de bord</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link active" href="{{path("foods_list")}}">Menu</a>
+								<a class="nav-link active" href="{{path('admin_foods_list')}}">Menus</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link active" href="#">Réservation</a>
+								<a class="nav-link active" href="#">Tables</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link active" href="#">Galérie</a>
+								<a class="nav-link active" href="#">Commandes</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link active" href="#">Bloc</a>
+								<a class="nav-link active" href="{{path('admin_reservations_list')}}">Réservation</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link active" href="#">Boutique</a>
+								<a class="nav-link active" href="{{path('admin_comments_list')}}">Commentaires menus</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link active" href="#">Contact</a>
+								<a class="nav-link active" href="#">Commnentaires tables</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link active" href="#">A Propos</a>
+								<a class="nav-link active" href="#">Les utilisateurs</a>
 							</li>
 
 							<li class="nav-item">

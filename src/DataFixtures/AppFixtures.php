@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Commande;
+use App\Entity\Comment;
 use App\Entity\Food;
 use App\Entity\Image;
 use App\Entity\Reservation;
@@ -162,10 +163,10 @@ class AppFixtures extends Fixture
 
                 //On va setter 
                 $reservation->setClient($client)
-                    ->setTabledisponible($table)
-                    ->setDate($date)
-                    ->setCommentaire($comment)
-                    ;
+                            ->setTabledisponible($table)
+                            ->setDate($date)
+                            ->setCommentaire($comment)
+                            ;
                 $manager->persist($reservation);
             }
         }
@@ -205,8 +206,9 @@ class AppFixtures extends Fixture
                 $caption = $faker->sentence();
 
                 $image->setUrl($url)
-                    ->setCaption($caption)
-                    ->setFood($food);
+                      ->setCaption($caption)
+                      ->setFood($food);
+                    
                 $manager->persist($image);
             }
 
@@ -260,6 +262,20 @@ class AppFixtures extends Fixture
                     //->setMenu($menufood)
                 ;
                 $manager->persist($commande);
+
+
+                //Les commentaires sont traités en même temps que la commande
+                //Faire une condition pour créer les commentaires aléatoirement 
+                if (mt_rand(0,1)) {
+                    $comment = new Comment();
+
+                    $comment->setRating(mt_rand(0,5))
+                            ->setContent($faker->paragraph())    
+                            ->setFood($food)
+                            ->setAuthor($commandeur)
+                    ;
+                    $manager->persist($comment);
+                }
             }
         }
 

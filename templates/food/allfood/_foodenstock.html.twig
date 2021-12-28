@@ -4,7 +4,7 @@
 
 
 
-<div class="col-md-4 mb-3 row">
+<!--<div class="col-md-4 mb-3 row">
 	<div class="card mb-3">
 		<h3 class="card-header text-center">{{food.menu |slice(0,12)}}</h3>
 		<a href="{{path('foods_single',{'slug':food.slug})}}">
@@ -42,13 +42,78 @@
 			</div>
 		</div>
 		<div class="card-footer text-muted text-center">
-			{#{% if ad.comments|length > 0 %}
-							{% include 'inc/rating.html.twig' with 'rating' : ad.avarageRatings } %}
-							sur {
-							{ad.comments|length}} avis
-						{% else %}
-						{% endif %}#}
-			<span>Pas encore noté</span>
+			{% if food.comments|length > 0 %}
+				{% include 'inc/rating.html.twig' with {'rating' : food.avarageRatings } %}
+					sur {{food.comments|length}} avis
+			{% else %}
+				<span>Pas encore noté</span>
+			{% endif %}
 		</div>
+	</div>
+</div>-->
+
+
+
+
+<div class="card mb-3" style="width: 18rem;">
+	<a href="{{path('foods_single',{'slug':food.slug})}}"style="text-decoration:none">
+		<img class="card-img-top" src="{{food.coverImage}}" alt="{{food.menu}}" style="height: 250px; width:100%; display: block;">
+
+		<div class="card-body" id="cardbody">
+			<h4 class="card-title" style="
+    padding-bottom: 7px; font-size:1.4em;">{{food.menu |slice(0,12)}}</h4>
+			<p class="card-text" style="color:black">{{food.description|striptags|slice(0,75)}}.</p>
+			<p id="price" style="color:red">{{food.price|number_format(2)}} &euro;</p>
+			<div class="row">
+				<div class="col-md-6">
+					<a href="{{path('foods_single',{'slug': food.slug})}}" class="btn	btn-warning btn-sm">voir
+						<i class="fas fa-hamburger"></i>
+					</a>
+				</div>
+				<div class="col-md-6">
+					{#Rajouter une condition si l'utilisateur est connecté(app.use) et l'author de l'annonce #}
+					{% if app.user and app.user == food.author %}
+						<a href="{{path('foods_edit',{'slug':food.slug})}}" class="btn btn-info btn-sm">Modifier</a>
+					{% endif %}
+				</div>
+				<div class="col text-center mt-2">
+					{% if food.author.tables|length >= 1  %}
+						<a href="{{path('foods_single',{'slug': food.slug})}}"  class="btn btn-success" style="background-color:#B49C73">
+							<i class="fas fa-utensils"></i> 
+							{{food.author.tables|length}}
+								{% if food.author.tables|length > 1 %}
+								 	tables libres
+								{% else %}
+									table libre
+								{% endif %}
+							</a>
+					{% endif %} 
+				</div>
+			</div>
+			<div class="card-footer text-muted text-center">
+				{% if food.comments|length > 0 %}
+					{% include 'inc/rating.html.twig' with {'rating' : food.avarageRatings } %}
+						sur {{food.comments|length}} avis
+				{% else %}
+					<span>Pas encore noté</span>
+				{% endif %}
+			</div>
+			</a>
+	</div>
+
+	<div class="card-body hidden" id="cardbody2">
+		<h4 class="card-title" style="
+    padding-bottom: 7px; font-size:1.4em;">{{food.menu |slice(0,12)}}</h4>
+		<p class="card-text" style="color:black">{{food.description|striptags|slice(0,75)}}.</p>
+		<p style="color:red">{{food.price|number_format(2)}} &euro;</p>
+		<ul>
+			<li>Bla1</li>
+			<li>Bla2</li>
+			<li>Bla3</li>
+			<li>Bla4</li>
+			<li>Bla5</li>
+			<li>Bla6</li>
+		</ul>
+		<a href="#" class="btn btn-primary">Go somewhere</a>
 	</div>
 </div>

@@ -9,7 +9,7 @@
 	<div style="background-image:url({{food.coverImage}}); height:353px;" class="titreAd overlaysmall">
 
 			<div class="container dataContainer">
-				<h1 class="show">{{food.menu}}</h1>
+				<h1 class="show" style="color:black">{{food.menu}}</h1>
 				<p>{{food.description|striptags|slice(0,40) ~ "..."}}</p>
 				<p><strong>{{food.price}}	&euro;</strong></p>
 
@@ -64,8 +64,9 @@
 			</div>
 	</div>
 
-	<div class="container">
-			<div>
+	<div class="container mt-5">
+		<div class="row">
+			<div class="col-md-9" style="border-right:1px solid red">
 				{# |raw veut dire sans balise HTML #}
 				<div class="mb-5">
 					{{food.description|raw}}
@@ -105,30 +106,32 @@
 				</div>
 				<hr>
 
-				{# Afficher les commentaires à condition qu'il en a au moins une 
-				{% if ad.comments|length > 0 %}
+				{# Afficher les commentaires à condition qu'il en a au moins une #}
+				{% if food.comments|length > 0 %}
 					<div class="mt-5">
-						<h5 class="mb-3 h6">Commentaire de
-							{{ad.comments|length}}
-							{% if ad.comments|length <= 1 %}
-								voyageur
-							{% else %}
-								voyageurs
-							{% endif %}
-						</h5>
+						<div style="border:1px solid #C1A57B;padding-left:13px;" class="mb-5">
+							<h5 class="my-3 h6">Commentaire de
+								{{food.comments|length}}
+								{% if food.comments|length <= 1 %}
+									voyageur
+								{% else %}
+									voyageurs
+								{% endif %}
+							</h5>
 
-						La moyenne de note de commentaire 
-						<div class="row bg-light p-2 my-1 mb-5">
-							<div class="col-5">La moyenne des notes sur:
-								{{ad.comments|length}}</div>
-							<div class="col-7 ">
-								{% include "inc/rating.html.twig" with {'rating':ad.avarageRatings} %}
+							La moyenne de note de commentaire 
+							<div class="row p-2 my-3" style="width:97%;border-radius:3px;background-color:#beb19d">
+								<div class="col-5">La moyenne des notes sur:
+									{{food.comments|length}}</div>
+								<div class="col-7">
+									{% include "inc/rating.html.twig" with {'rating':food.avarageRatings} %}
+								</div>
 							</div>
 						</div>
 
 
-						{# Afficher dans une boucle tous les commentaires
-						{% for comment in ad.comments %}
+						{# Afficher dans une boucle tous les commentaires #}
+						{% for comment in food.comments %}
 							<div class="row">
 								<div class="col-md-4">
 									<img src="{{comment.author.avatar}}" alt="image de {{comment.author.fullName}}" class="avatar avatar-small">
@@ -137,10 +140,10 @@
 								<div class="col-md-8">
 									<p>Commentaire:</p>
 									<p>{{comment.content}}</p>
-									<p> #}
+									<p> 
 										{# On va faire une boucle entre 1 et 5 pour afficher 5 étoiles (pleine et/ou vide) pour l'affichage des notes #}
-										{# définir la variable rating(inc/rating.html.twig)
-									{% include "inc/rating.html.twig" with {'rating':comment.rating} %}
+										{# définir la variable rating(inc/rating.html.twig) #}
+										{% include "inc/rating.html.twig" with {'rating':comment.rating} %}
 								</p>
 							</div>
 							</div>
@@ -150,7 +153,7 @@
 				{% else %}
 					<div class="mb-5">Pas encore de commentaire</div>
 				{% endif %}
-			</div>#}
+			</div>
 
 
 			{# A partir d'ici on utilise L'Entity User.php #}
@@ -158,8 +161,7 @@
 				 {#Pour éviter la répétion de la méthode (food.author) on va crée une varible moins  longue #}
 				{% set f = food.author %}
 				{% set url = path('user_single',{'slug':f.slug}) %}
-				<div class="row">
-					<div class="col-4">
+					<div class="col-6">
 						<a href="{{ url }}">
 							<img src="{{f.avatar}}" alt="{{f.fullname}}" class="avatar ">
 						</a>
@@ -176,18 +178,19 @@
 								menu
 							{% endif %}
 						</span>
-						<span> et </span>
 						{# On va récupérer le nombre de tables de l'author de menu #}
-						<span class="bg bg-warning">{{f.tables|length}}
+						<span class="bg bg-warning">
 							{% if f.tables|length > 1 %}
-								tables
+							  et {{f.tables|length}} tables
+							{% elseif f.tables|length == 1 %}
+								et {{f.tables|length}} table
 							{% else %}
-								table
+									
 							{% endif %}
 						</span>
 					</div>
-				</div>
-				<p>{{f.introduction}}</p>
+				<p>{{f.description|raw}}</p>
+		</div>
 
 		</div>
 	</div>

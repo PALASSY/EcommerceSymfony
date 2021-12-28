@@ -1,0 +1,157 @@
+{% extends 'admin/base.html.twig' %}
+{% form_theme form _self %}
+
+{% block title %}Modification d'un menu
+{% endblock %}
+
+{% block body %}
+	<main class="container-fluid mb-5">
+		<h1 class="my-5 text-center h2">
+			Modification d'un menu n°{{food.id}}<hr>
+			<small>{{food.menu}}</small>
+		</h1>
+		<section class="col-md-8 offset-md-2 mb-5">
+			{{form_start(form)}}
+			<div
+				class="row">
+				{# Affichage de l'annonce à modifier #}
+				<div class="col">
+					<div class="card bg-light">
+						<div class="card-header">
+							<h4 class="card-title text-center">Corriger le menu ?</h4>
+						</div>
+						<div class="card-body">
+							{{form_widget(form)}}
+							<div class="form-group text-center">
+								<button type="submit" class="btn btn-danger mt-3">
+									<i class="fas fa-check"></i>
+									Enregistrer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				{# Affichage des réservations/commentaires liés à cet menu à modifier #}
+				<div
+					class="col">
+					{# Commandes #}
+					<div class="card bg-light">
+						<div class="card-header">
+							<h4 class="card-title text-center">Les commandes</h4>
+						</div>
+						<div class="card-body">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Client</th>
+										<th>Date de commande</th>
+                    <th>Prix total de la commande</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									{# on va récupérer tous les réservations #}
+									{% for commande in food.menucommandeur %}
+										<tr>
+											<td>{{commande.id}}</td>
+											<td>{{commande.commandeur.fullName}}</td>
+											<td>{{commande.datecommnande|date('d/m/Y')}}</td>
+                      <td>{{commande.prixtotal}}</td>
+											<td>
+												<a href="#" class="btn btn-primary btn-sm">
+													<i class="fas fa-pen"></i>
+												</a>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div><br>
+					{# Commentaires #}
+					<div class="card bg-light">
+						<div class="card-header">
+							<h4 class="card-title text-center">Les commentaires</h4>
+						</div>
+						<div class="card-body">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Client</th>
+										<th>Note</th>
+										<th>Commentaire</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									{# on va récupérer tous les réservations #}
+									{% for comment in food.comments %}
+										<tr>
+											<td>{{comment.id}}</td>
+											<td>{{comment.author.fullName}}</td>
+											<td class="text-center">{{comment.rating}}</td>
+											<td>{{comment.content}}</td>
+											<td>
+												<a href="#" class="btn btn-primary btn-sm">
+													<i class="fas fa-pen"></i>
+												</a>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			{{form_end(form)}}
+		</section>
+		<br>
+		<br>
+	</main>
+
+{% endblock %}
+
+
+{%- block textarea_widget -%}
+    <textarea {{ block('widget_attributes') }} style="width:100%;height:180px">{{ value|striptags}}</textarea>
+{%- endblock textarea_widget -%}
+
+{# Création de nouveau block pour afficher les images et pouvoir les supprimer #}
+{% block _food_images_widget %}
+	<p>Supprimer l'image ?</p>
+	{{form_widget(form)}}
+{% endblock %}
+
+{# Ce nouveau block affiche le(label/widget/help...) avec row venant de Collection-Entry #}
+{% block _food_images_entry_row %}
+  {{form_widget(form)}}
+{% endblock %}
+
+{% block _food_images_entry_widget %}
+  <div class="form-group bg-light p-2 my-1 mb-3" id="block_{{id}}">
+    <div class="row align-items-center">
+      <div class="col-10 col-md-10">
+        {% if value %}
+          <div class="col-md-6 col">
+            <img src="{{value.url}}" alt="" class="img-fluid">
+          </div>
+        {% endif %}
+          <div class="col-md-6 col">
+            {{form_widget(form.caption)}}
+            {{form_errors(form.caption)}}
+          </div>
+      </div>
+      <div class="col-2 col-md-2 ">
+        <button type="button" class="btn btn-danger" data-action="delete" data-target="#block_{{id}}"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{# Quand on click sur le bouton de delete, on supprime l'image #}
+{% block javascripts %}
+	<script src="/js/food.js"></script>
+{% endblock %}

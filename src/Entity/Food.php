@@ -65,7 +65,7 @@ class Food
     private $datecreationmenu;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="food")
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="food", orphanRemoval=true)
      */
     private $images;
 
@@ -85,12 +85,18 @@ class Food
      */
     private $menucommandeur;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="food", orphanRemoval=true)
+     */
+    private $comments;
+
 
 
     public function __construct() 
     {
         $this->datecreationmenu = new \DateTime();
         $this->images = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
 
@@ -104,6 +110,44 @@ class Food
         if (empty($this->slug)) {
             $slugify = new Slugify();
             $this->slug = $slugify->slugify($this->menu);
+        }
+    }
+
+    /**
+     * Récupérer un commentaire de l'user lamba par rapport à l'annonce(Food())
+     *
+     * @param User $author
+     * @return Comment|null
+     */
+    public function getCommentFromauthor(User $author)
+    {
+        //Récupérer tous les commentaires
+        foreach ($this->comments as  $comment) {
+            //Si l'utilisateur lamba est l'author de commentaire on récupére le commentaire 
+            if ($author == $comment->getAuthor()) {
+                return $comment;
+            }
+            return null;
+        }
+    }
+
+
+
+    public function getAvarageRatings()
+    {
+        //Récupérer le nombre total des commentaires dans un tableau
+        //Faire une itération(fait répéter) à partir d'un nombre de départ(0) pour rajouter les notes de chaque commentaire dans un tableau
+        $sum = array_reduce($this->comments->toArray(),function ($total,$comment)
+        {
+            return $total + $comment->getRating();
+        },0);
+
+        //Calcul de ces notes commentaires
+        //Vérifier s'il y a au moins un commentaire 
+        if (count($this->comments) > 0) {
+            return $sum / count($this->comments);
+        }else{
+            return 0;
         }
     }
 
@@ -260,6 +304,36 @@ class Food
     public function setMenucommandeur(?Commande $menucommandeur): self
     {
         $this->menucommandeur = $menucommandeur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setFood($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getFood() === $this) {
+                $comment->setFood(null);
+            }
+        }
 
         return $this;
     }

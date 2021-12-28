@@ -1,0 +1,59 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Moderation de reservation
+{% endblock %}
+
+
+{% block body %}
+	<div class="container-fluid px-5">
+		<h4 class="my-5">Gestion des réservations</h4>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Date de creation</th>
+					<th>Client</th>
+					<th>Table</th>
+          <th>Nombre de personnes</th>
+					<th>Date de réservation</th>
+          <th>Commentaire</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{# On va faire une boucle pour afficher les données de commentaire #}
+				{% for reservation in reservations %}
+                {#{% set adContent = booking.ad.content|slice(0, 40) ~ '...' %}#}
+					<tr>
+						<td style="font-weight:bold">{{reservation.id}}</td>
+						<td></td>
+						<td>
+							<img src="{{reservation.client.avatar}}" alt="image de {{reservation.client.fullName}}" class="avatar avatar-small">
+							{{reservation.client.fullName}}
+						</td>
+						<td>{{reservation.tabledisponible.place}}</td>
+            <td>{{reservation.tabledisponible.nombre}}</td>
+						<td>{{reservation.date|date('d/m/Y')}}</td>
+            <td>{{reservation.commentaire|slice(0, 40) ~ '...'}}</td>
+						<td>
+							<a href="{{path('admin_reservation_edit',{'id':reservation.id})}}" class="btn btn-primary btn-sm">
+								<i class="fas fa-edit"></i>
+							</a>
+							<a href="{{path('admin_reservation_delete',{'id':reservation.id})}}" class="btn btn-danger btn-sm" onclick="return confirm(`Etes-vous sûr de de voumoir supprimer cet commentaire ?`)">
+								<i class="fas fa-trash"></i>
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		{# Affichage de pagination #}
+		{#{{pagination.display()}}#}
+
+
+	</div>
+	<br><br>
+{% endblock %}
+
+

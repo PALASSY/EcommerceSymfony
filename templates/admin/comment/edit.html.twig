@@ -1,0 +1,117 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modification de commentaire
+{% endblock %}
+
+{% block body %}
+	<main class="container-fluid mb-5">
+		<h1 class="my-5 text-center h2">
+			Modification du commentaire n°{{comment.id}}
+		</h1>
+		<section class="col-md-8 offset-md-2 mb-5">
+			{{form_start(form)}}
+			<div class="row">
+				{# Affichage du commentaire à modifier #}
+				<div class="col">
+					<div class="card bg-light">
+						<div class="card-header">
+							<h4 class="card-title text-center">Corriger le commentaire ?</h4>
+						</div>
+						<div class="card-body">
+							{{form_widget(form)}}
+							<div class="form-group text-center">
+								<button type="submit" class="btn btn-danger mt-3">
+									<i class="fas fa-check"></i>
+									Enregistrer</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				{# Affichage du menu/auteur liés à cet commentaire à modifier #}
+				<div
+					class="col">
+					{# Annonce #}
+					<div class="card bg-light">
+						<div class="card-header">
+							<h4 class="card-title text-center">Le menu</h4>
+						</div>
+						<div class="card-body">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Menu</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									{# on va récupérer tous les réservations #}
+										<tr>
+											<td>{{comment.food.id}}</td>
+											<td>
+                        <div class="row">
+                          <div class="col-md-2" style="padding-right:0">
+                              <img style="height: 50px; width:60px; display: block;" src="{{comment.food.coverimage}}" alt="Image" class="img-fluid">
+                          </div>
+                          <div class="col" style="padding-left:0;line-height:50px">
+                              {{comment.food.menu}}
+                          </div>
+                        </div>
+                      </td>
+											<td>
+												<a href="#" class="btn btn-primary btn-sm">
+													<i class="fas fa-pen"></i>
+												</a>
+											</td>
+										</tr>
+								</tbody>
+							</table>
+						</div>
+					</div><br>
+					{# L'auteur #}
+					<div class="card bg-light">
+						<div class="card-header">
+							<h4 class="card-title text-center">L'auteur de l'annonce</h4>
+						</div>
+						<div class="card-body">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Nom</th>
+										<th>Prénom</th>
+										<th>Email</th>
+										<th>Avatar</th>
+                    <th></th>
+									</tr>
+								</thead>
+								<tbody>
+									{# on va récupérer tous les réservations #}
+										<tr>
+											<td>{{comment.author.id}}</td>
+											<td>{{comment.author.firstname}}</td>
+											<td>{{comment.author.lastname}}</td>
+											<td>{{comment.author.email}}</td>
+                      <td>
+                        <img src="{{comment.author.avatar}}" alt="image de {{comment.author.fullName}}" class="avatar avatar-small">
+                      </td>
+											<td>
+												<a href="#" class="btn btn-primary btn-sm">
+													<i class="fas fa-pen"></i>
+												</a>
+											</td>
+										</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			{{form_end(form)}}
+		</section>
+		<br>
+		<br>
+	</main>
+
+{% endblock %}
+

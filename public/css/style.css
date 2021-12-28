@@ -119,6 +119,9 @@ header .email .email-div2 {
  .bandeau4 a.nav-link.active:hover {
     color: #C1A57B;
 }
+#navbarnonfixed{width: 100%;top: 0;z-index: 100; transition: 2s;}
+.navbarfixed{position: fixed;width: 120%;top: 0;z-index: 100;background-color:white; transition: 2s;margin-left: 30px;}
+
 /*last balise li*/
 header ul li span.span-i {
 	display: inline-block;

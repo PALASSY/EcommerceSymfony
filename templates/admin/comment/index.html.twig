@@ -1,0 +1,52 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Moderation de commentaire{% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid px-5">
+        <h3 class="my-5">Gestion des commentaires</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Date de creation</th>
+                    <th>Evaluation/5</th>
+                    <th>Commentaire</th>
+                    <th>Titre annonce</th>
+                    <th>Auteur</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {# On va faire une boucle pour afficher les données de commentaire #}
+                {% for comment in comments %}
+                    <tr>
+                        <td style="font-weight:bold">{{comment.id}}</td>
+                        <td>{{comment.creationdate|date('d m Y')}}</td>
+                        <td><span class="mx-4 badge bg-light">{{comment.food.avarageRatings|number_format(1,',',' ')}}</span></td>
+                        <td>{{comment.content|slice(0, 40) ~ '...'}}</td>
+                        <td>{{comment.food.menu}}</td>
+                        <td>
+                            <img src="{{comment.author.avatar}}" alt="image de {{comment.author.fullName}}" class="avatar avatar-small">
+                            {{comment.author.fullName}}
+                        </td>
+                        <td>
+                            <a href="{{path('admin_comment_edit', {'id': comment.id})}}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{{path('admin_comment_delete', {'id': comment.id})}}" class="btn btn-danger btn-sm" onclick="return confirm(`Etes-vous sûr de de voumoir supprimer cet commentaire ?`)">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {# Affichage de pagination #}
+        {#{{pagination.display()}}#}
+
+    </div>
+    <br><br>
+{% endblock %}

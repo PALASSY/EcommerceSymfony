@@ -35,3 +35,8 @@
     </div>
   </div>
 {% endblock %}
+
+
+{%- block textarea_widget -%}
+    <textarea {{ block('widget_attributes') }} style="width:100%;height:180px">{{ value|striptags}}</textarea>
+{%- endblock textarea_widget -%}

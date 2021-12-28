@@ -1,30 +1,114 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Mes reservations - Shangrila
 {% endblock %}
 
-
 {% block body %}
 
-	<div class="container mt-5">
-		<div class="bg-success card text-center">
-			<h2>Mes
+	<div class="container">
+		<h1 class="text-center mb-5">Mes
 				{{app.user.reservations|length}}
-				réservations</h2>
-		</div>
-		{# On va récupérer toutes les réservation de l'user connecté #}
-		{% for resa in app.user.reservations %}
+				réservations</h1>
 
-			<div class="row border-bottom border-light mt-5 mb-5">
-				<div class="col-md-4">
-					<img src="{{resa.tabledisponible.image}}" alt="Photo de l'annonce {{resa.tabledisponible.id}}" class="img-fluid">
+		<div class="row">
+			<div class="col-md-10" style="padding-left:0">
+				{% for resa in app.user.reservations %}
+					<div class="card mb-5">
+
+						<div class="card-header">
+							<div class="row">
+
+								<div class="col-md-7">
+									<div class="row">
+										<div class="col" style="padding:0">
+											<h1 class="h5">Réservation</h1>
+											<div class="commandeeffectue">éffectué le :</div>
+											<p class="commandedate">{{resa.date|date("d F Y", "Europe/Paris")}}</p>
+										</div>
+
+										<div class="col text-center">
+											<h1 class="h5">Heure</h1><br>
+											<p>{{resa.date|date("H:s")}}</p>
+										</div>
+
+										<div class="col text-center">
+											<h1 class="h5">Réserver par
+											</h1><br>
+											<a href="" onclick="info('{{resa.client.fullname}}')" class="commandefullname">{{resa.client.fullname}}</a>
+										</div>
+									</div>
+								</div>
+
+								<div class="col justify-content-end">
+									<h1 class="h5 mb-4 text-center">N° de réservation</h1>
+									<p class="text-center">{{resa.id}}</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-8" style="padding:0">
+									<h5 class="card-title commandetitle">Place en :
+										{{ resa.tabledisponible.place}}</h5>
+									<p class="card-text commandesigne">Chez :
+										{{resa.tabledisponible.authortable.fullname}}</p>
+									<div class="row">
+
+										
+										<div class="col-md-6">
+											<img style="height: 150px; width:100%; display: block;" src="{{resa.tabledisponible.image}}" alt="Image de couverture de {{resa.client.fullname}}" class="img-fluid">
+										</div>
+
+										<div class="col" style="padding-right:0">
+											<p>Table N° :
+												{{resa.tabledisponible.id}}</p>
+											<div class="row">
+												<div class="mr-3">
+													<a href="#" class="btn btn-warning commandebutton">
+														<i class="fas fa-undo-alt"></i>
+														Réserver à nouveau</a>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+								<div class="col">
+
+									<div class="d-flex flex-column align-items-end">
+										<div class="mb-4" commandebutton>
+											<button class="btn btn-light commandebutton">Commenter la réservation</button>
+										</div>
+										<div class="mb-2">
+											<button class="btn btn-warning commandebutton">Obtenir une assistance</button>
+										</div>
+										<div class="mb-2">
+											<button class="btn btn-light commandebutton">Partager le reçu de la résa</button>
+										</div>
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				{% endfor %}
+			</div>
+			<div class="col-md-2" style="padding:0">
+				<div class="card">
+					<h4>Réserver à nouveau</h4>
 				</div>
-				<div class="col-md-8">
-					<h4 class="h5">Place pour {{resa.tabledisponible.nombre}} {% if resa.tabledisponible.nombre > 1 %} personnes {% else %}
-            personne {% endif %}
-           en {{resa.tabledisponible.place}}</h4>
+			</div>
+		</div>
 
-					{# avis(commentaire) d'un author(reservateur) par rapport à une annonce 
+	{% endblock %}
+
+
+{# avis(commentaire) d'un author(reservateur) par rapport à une annonce 
 					<div>
 						{% set comment = booking.ad.commentFromAuthor(app.user) %}
 						{% set moyenne = booking.ad.avarageRatings %}
@@ -39,19 +123,3 @@
 							<p>Vous n'avez pas encore donné des notes(avis) pour ce séjour</p>
 						{% endif %}
 					</div>#}
-
-					<p>Réservation n° {{resa.id}}</p>
-					<p>Date de réservation: {{resa.date | date('d/m/Y')}}</p>
-          <p>Heure de réservation: {{resa.date | date('H:i')}}</p>
-					<p class="mb-3">
-						<a href="{{path('reservation_show', {'id':resa.id})}}" class="btn btn-success btn-small">Voir détails de la réservation</a>
-					</p>
-				</div>
-			</div>
-
-		{% endfor %}
-
-
-	</div>
-	<br><br><br>
-{% endblock %}

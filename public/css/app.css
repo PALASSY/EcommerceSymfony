@@ -141,8 +141,21 @@ a.btn,h1,p {
     border-radius: 2em;
     border-color: black;}
 
+/* templates/account/commandes.html.twig */
+.commandebutton{border: 1px solid black;width:230px;font-size: 15px!important;}
+.commandebuttonspan{width:230px;font-size: 15px!important;}
+.commandesigne{margin-top:-10px;font-size: 14px!important;}
+.commandetitle{font-size: 19px!important;}
+.commandeeffectue{font-size: 15px!important;margin-top:-12px;}
+.commandedate{margin-top: 0.9em;font-size: 16px;}
+.commandefullname{font-size: 18px;}
 
-    /* templates/food/food/_foodenrupturestock.html.twig */
+
+
+
+
+
+ /* templates/food/food/_foodenrupturestock.html.twig */
  #rupturestock {
 	opacity: 1;
   transition: 2s;
@@ -159,6 +172,16 @@ a.btn,h1,p {
   z-index:10
 }
 
-/*templates.food/index/_filter.html.twig*/
-.filter{display: block;position: sticky;top: 20px;}
-  
+/*templates/food/index/_filter.html.twig*/
+.filter{display: block;position: sticky;top: 150px;}
+.header{margin-bottom: 90px; transition: 2s;}
+
+
+/* templates/food/allFood/_foodenstock.html.twig */
+ #cardbody{background-color:#FFEFEC; width:100%;height:100%; transition: 2s} 
+
+
+#cardbody:hover {
+  margin-top: -100px;
+    transition: 1s
+}

@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>
-			{% block title %}Welcome to Shangrila
+			{% block title %}Administrateur
 			{% endblock %}
 		</title>
 
@@ -13,18 +13,20 @@
 
 
 		<!-- CSS only 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">-->
-
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">-->
 
 
 		{# CSS minifié de bootswatch.com 
-		        <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">#}
+				        <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">#}
 
 		{# CSS #}
 		<link rel="stylesheet" href="/css/style.css" type="text/css">
-		<link rel="stylesheet" href="/css/app.css" type="text/css">
+    <link rel="stylesheet" href="/css/app.css" type="text/css">
+    <link rel="stylesheet" href="/css/admin.css" type="text/css">
+
 		{# CSS STRIPE #}
-		<link rel="stylesheet" href="/css/stripe.css" type="text/css">
+		<link
+		rel="stylesheet" href="/css/stripe.css" type="text/css">
 
 		{# Google Fonts #}
 		<link
@@ -37,7 +39,7 @@
 		{# JS #}
 		<script src="/js/jquery.compact.js"></script>
 
-		  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+		<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
 
 		{# Fontawasome #}
@@ -45,7 +47,7 @@
 
 
 		{# Run `composer require symfony/webpack-encore-bundle`
-		           and uncomment the following Encore helpers to start using Symfony UX #}
+				           and uncomment the following Encore helpers to start using Symfony UX #}
 		{% block stylesheets %}
 			{#{{ encore_entry_link_tags('app') }}#}
 		{% endblock %}
@@ -53,11 +55,11 @@
 	</head>
 	<body>
 		{# header #}
-		{% include "inc/header.html.twig" %}
+		{% include "admin/inc/header.html.twig" %}
 
 		<!--Message flash : On va récupérer à l'aide 
-		        d'une boucle le label/messages dans le Global app
-		        et sa methode flashes -->
+				        d'une boucle le label/messages dans le Global app
+				        et sa methode flashes -->
 		{% for label,messages in app.flashes %}
 			<div class="container">
 				{% for message in messages %}
@@ -74,7 +76,7 @@
 
 
 		{# footer #}
-		{% include "inc/footer.html.twig" %}
+		{% include "admin/inc/footer.html.twig" %}
 
 
 		{% block javascripts %}

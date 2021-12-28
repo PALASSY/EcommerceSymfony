@@ -109,6 +109,11 @@ class User implements UserInterface
      */
     private $adress;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="author", orphanRemoval=true)
+     */
+    private $commentsauthor;
+
 
 
     //Concater le nom et prénom 
@@ -141,6 +146,7 @@ class User implements UserInterface
         $this->tables = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->commandeurMenu = new ArrayCollection();
+        $this->commentsauthor = new ArrayCollection();
     }
 
 
@@ -471,6 +477,36 @@ class User implements UserInterface
         }
 
         $this->adress = $adress;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getCommentsauthor(): Collection
+    {
+        return $this->commentsauthor;
+    }
+
+    public function addCommentsauthor(Comment $commentsauthor): self
+    {
+        if (!$this->commentsauthor->contains($commentsauthor)) {
+            $this->commentsauthor[] = $commentsauthor;
+            $commentsauthor->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentsauthor(Comment $commentsauthor): self
+    {
+        if ($this->commentsauthor->removeElement($commentsauthor)) {
+            // set the owning side to null (unless already changed)
+            if ($commentsauthor->getAuthor() === $this) {
+                $commentsauthor->setAuthor(null);
+            }
+        }
 
         return $this;
     }

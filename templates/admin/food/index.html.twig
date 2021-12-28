@@ -1,0 +1,65 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Moderation de menus
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid px-5">
+		<h3 class="my-5">Gestion des menus</h3>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Menu</th>
+					<th>Auteur</th>
+					<th>Commande</th>
+					<th>Note moyenne</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{# On va faire une boucle pour afficher toutes les données de l'annonce personnalisée #}
+				{% for food in foods %}
+					<tr>
+						<td style="font-weight:bold">{{food.id}}</td>
+						<td>
+                            <div class="row">
+                                <div class="col-md-1" style="padding-right:0">
+                                    <img style="height: 50px; width:60px; display: block;" src="{{food.coverimage}}" alt="Image" class="img-fluid">
+                                </div>
+                                <div class="col" style="padding-left:0;line-height:50px">
+                                    {{food.menu}}
+                                </div>
+                            </div>
+                        </td>
+						<td>
+							<img src="{{food.author.avatar}}" alt="image de {{food.author.fullName}}" class="avatar avatar-small">
+							{{food.author.fullName}}
+						</td>
+						<td>
+							<span class="badge badge-info rounded mx-4">{{food.menucommandeur|length}}</span>
+						</td>
+						<td>
+							<span class="badge badge-success rounded mx-4">{{food.avarageRatings|number_format(1,',',' ')}}</span>
+						</td>
+						<td>
+							<a href="{{path('admin_foods_edit', {'id': food.id})}}" class="btn btn-primary btn-sm">
+								<i class="fas fa-edit"></i>
+							</a>
+							<a href="{{path('admin_food_delete', {'id': food.id})}}" class="btn btn-danger btn-sm" onclick="return confirm(`Etes vous sûr de vouloir supprimer cette annonce ?`)">
+								<i class="fas fa-trash"></i>
+							</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		{# Affichage de pagination #}
+		{#{{pagination.display()}}#}
+
+
+	</div>
+	<br><br><br><br>
+{% endblock %}
+

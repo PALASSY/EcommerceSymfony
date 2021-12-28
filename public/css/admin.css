@@ -1,0 +1,19 @@
+
+
+ /*bandeau 1*/
+ header .bandeauadmin1 {
+	background: #300100;
+	color: #FFFFFC;
+	height: 50px;
+	width: 100vw;
+	
+}
+
+header .emailadmin {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: #373A40;
+	color: #F1F3F8;
+	height: 35px;
+}
