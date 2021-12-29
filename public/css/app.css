@@ -185,3 +185,15 @@ a.btn,h1,p {
   margin-top: -100px;
     transition: 1s
 }
+
+
+
+/* pagination */
+#paginationDispaly{margin-left: 41em;}
+.page-item.active .page-link{background-color: #B49C73; border-radius: 1px;}
+.page-link {color: #B49C73;}
+.page-link:hover {color: red;background-color: bisque;}
+
+
+
+#navbarSupportedContent a:hover{background-image: url('https://i.pinimg.com/originals/36/0e/c6/360ec6d097235cf7190c813d1cec871e.jpg');color: #FFEFEC;}

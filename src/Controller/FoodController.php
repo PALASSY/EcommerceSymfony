@@ -7,6 +7,7 @@ use App\Entity\Food;
 use App\Form\FoodType;
 use App\Form\SearchType;
 use App\Repository\FoodRepository;
+use App\Service\Pagination\Pagination;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,15 +20,21 @@ class FoodController extends AbstractController
 {
     /**
      * Page qui affiche tous les menus(plats/food...)
-     * @Route("/foods", name="foods_list")
+     * @Route("/foods/{page<\d+>?1}", name="foods_list")
      */
-    public function index(FoodRepository $foodRepo,Request $request): Response
+    public function index(FoodRepository $foodRepo,Request $request,$page,Pagination $pagination): Response
     {
         $data = new searchData();
 
         $form = $this->createForm(SearchType::class,$data);
         $form->handleRequest($request);
         //dd($data);
+
+        //On va setter l'Entity et la page par défaut pour la pagination
+        $pagination->setEntityClass(Food::class)
+                   ->setCurrentPage($page)
+                   ->setLimit(9)
+                   ;
 
         if (!empty($foodRepo->findSearch($data))) {
             //Récupération des food par tri
@@ -39,7 +46,7 @@ class FoodController extends AbstractController
         }
 
         return $this->render('food/index.html.twig', [
-            'foods' => $foods,
+            'pagination' => $pagination,
             'form' => $form->createView()
         ]);
     }

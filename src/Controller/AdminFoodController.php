@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Food;
 use App\Form\FoodType;
 use App\Repository\FoodRepository;
+use App\Service\Pagination\Pagination;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,12 +16,19 @@ class AdminFoodController extends AbstractController
 {
     /**
      * Page qui affiche tous les menus
-     * @Route("/admin/foods", name="admin_foods_list")
+     * @Route("/admin/foods/{page<\d+>?1}", name="admin_foods_list")
+     *  @param [type] $page
      */
-    public function index(FoodRepository $foodrepo): Response
+    public function index(FoodRepository $foodrepo,$page,Pagination $pagination): Response
     {
+        //Setter la (l'Entity et la page actuelle)
+        $pagination->setEntityClass(Food::class)
+                   ->setCurrentpage($page)
+                   //->setRoute('admin_foods_list')
+                   ;
+
         return $this->render('admin/food/index.html.twig', [
-            'foods' => $foodrepo->findAll()
+            'pagination' => $pagination
         ]);
     }
 

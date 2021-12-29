@@ -6,6 +6,7 @@ use App\Entity\Reservation;
 use App\Form\AdminReservationType;
 use Doctrine\Persistence\ObjectManager;
 use App\Repository\ReservationRepository;
+use App\Service\Pagination\Pagination;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,12 +16,19 @@ class AdminReservationController extends AbstractController
 {
     /**
      * Page qui affiche toutes les réservations
-     * @Route("/admin/reservations", name="admin_reservations_list")
+     * @Route("/admin/reservations/{page<\d+>?1}", name="admin_reservations_list")
      */
-    public function index(ReservationRepository $reporeservation): Response
+    public function index(ReservationRepository $reporeservation,$page,Pagination $pagination): Response
     {
+
+        //Setter la (l'Entity et la page actuelle)
+        $pagination->setEntityClass(Reservation::class)
+                   ->setCurrentpage($page)
+                   //->setRoute('admin_reservations_list')
+                   ;
+
         return $this->render('admin/reservation/index.html.twig', [
-            'reservations' => $reporeservation->findAll(),
+            'pagination' => $pagination
         ]);
     }
 

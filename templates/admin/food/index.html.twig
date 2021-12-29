@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block body %}
+
 	<div class="container-fluid px-5">
 		<h3 class="my-5">Gestion des menus</h3>
 		<table class="table table-hover">
@@ -19,7 +20,7 @@
 			</thead>
 			<tbody>
 				{# On va faire une boucle pour afficher toutes les données de l'annonce personnalisée #}
-				{% for food in foods %}
+				{% for food in pagination.data %}
 					<tr>
 						<td style="font-weight:bold">{{food.id}}</td>
 						<td>
@@ -55,8 +56,12 @@
 			</tbody>
 		</table>
 
-		{# Affichage de pagination #}
-		{#{{pagination.display()}}#}
+		<div class="mt-5" id="paginationDispaly">
+			{# Affichage de pagination #}
+			{{pagination.display()}}
+		</div>
+	
+
 
 
 	</div>

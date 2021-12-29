@@ -5,6 +5,7 @@
 
 
 {% block body %}
+
 	<div class="container-fluid px-5">
 		<h4 class="my-5">Gestion des réservations</h4>
 		<table class="table table-hover">
@@ -22,7 +23,7 @@
 			</thead>
 			<tbody>
 				{# On va faire une boucle pour afficher les données de commentaire #}
-				{% for reservation in reservations %}
+				{% for reservation in pagination.data %}
                 {#{% set adContent = booking.ad.content|slice(0, 40) ~ '...' %}#}
 					<tr>
 						<td style="font-weight:bold">{{reservation.id}}</td>
@@ -48,8 +49,11 @@
 			</tbody>
 		</table>
 
-		{# Affichage de pagination #}
-		{#{{pagination.display()}}#}
+
+		<div class="mt-5" id="paginationDispaly">
+			{# Affichage de pagination #}
+			{{pagination.display()}}
+		</div>
 
 
 	</div>

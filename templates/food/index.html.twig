@@ -16,7 +16,7 @@
 
 			<div class="col-md-10" style="padding-right:0;padding-left:0; width:100%">
 				<div class="row">
-					{% for food in foods %}
+					{% for food in pagination.data %}
 						<div class="col-md-4 mt-4" style="height:680px">
 						 {% if food.stock < 1 %}
 							{% include "food/allfood/_foodenrupturestock.html.twig" with {food:food} only %}
@@ -29,6 +29,12 @@
 				</div>
 			</div>
 		</div>
+
+		<div id="paginationDispaly">
+			{# Affichage de pagination #}
+			{{pagination.display()}}
+		</div>
 	</div>
+	<br><br><br><br>
 {% endblock %}
 

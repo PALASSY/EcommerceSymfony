@@ -4,6 +4,7 @@
 
 
 {% block body %}
+
     <div class="container-fluid px-5">
         <h3 class="my-5">Gestion des commentaires</h3>
         <table class="table table-hover">
@@ -20,7 +21,7 @@
             </thead>
             <tbody>
                 {# On va faire une boucle pour afficher les données de commentaire #}
-                {% for comment in comments %}
+                {% for comment in pagination.data %}
                     <tr>
                         <td style="font-weight:bold">{{comment.id}}</td>
                         <td>{{comment.creationdate|date('d m Y')}}</td>
@@ -44,8 +45,11 @@
             </tbody>
         </table>
 
-        {# Affichage de pagination #}
-        {#{{pagination.display()}}#}
+
+        <div class="mt-5" id="paginationDispaly">
+            {# Affichage la methode display() de pagination #}
+            {{pagination.display()}}
+        </div>
 
     </div>
     <br><br>
