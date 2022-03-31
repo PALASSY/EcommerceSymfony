@@ -21,6 +21,7 @@ class FoodDql
     $foodEntree = $this->manager->createQuery('SELECT f FROM App\Entity\Food f WHERE f.category = \'entree\' ')
       ->getResult();
 
+
     $foodEntree  = $foodEntree[array_rand($foodEntree)];
     return $foodEntree;
 
@@ -39,7 +40,7 @@ class FoodDql
   }
 
   /**
-   * Récupérer tous les entree en mode random
+   * Récupérer tous les desserts en mode random
    */
   public function dessert()
   {
@@ -52,7 +53,7 @@ class FoodDql
 
 
   /**
-   * Récupérer tous les food en mode random
+   * Récupérer tous les images de food en mode random
    */
   public function foodImages()
   {
@@ -68,6 +69,27 @@ class FoodDql
       $foodImages[] .= $value['coverImage'];
     }
     return $foodImages;
+  }
+
+
+
+  /**
+   * Récupérer tous les food
+   *
+   * @return Response
+   */
+  public function allFoods()
+  {
+    $foods = [];
+    $food = $this->manager->createQuery('SELECT f FROM App\Entity\Food f')
+      ->getResult();
+
+    $foodsSelect = array_intersect_key($food, array_flip(array_rand($food, 8)));
+
+    foreach ($foodsSelect as $value) {
+      $foods[] = $value;
+    }
+      return $foods;
   }
 
 

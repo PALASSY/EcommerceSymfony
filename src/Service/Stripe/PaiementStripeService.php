@@ -65,6 +65,7 @@ class PaiementStripeService
     if (isset($_POST['stripeToken'])) {
 
       $request = $this->requestStack->getCurrentRequest();
+      //dd($request);
       $source = $request->get('stripeToken');
 
       $customer =  \Stripe\Customer::create([

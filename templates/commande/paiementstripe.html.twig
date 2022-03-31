@@ -4,60 +4,62 @@
 {% endblock %}
 
 {% block body %}
-	<main class="container-fluid mb-5">
-		<h1 class="my-5 text-center h2">Paiement</h1>
+	<main class="container-fluid mb-5" style="background-color:rgba(243, 223, 186,0.6)">
+		<h1 class="my-5 text-center h2 pt-5"><i class="fas fa-money-check"></i> Paiement avec Stripe</h1>
 		<section class="col-md-8 offset-md-2 mb-5">
-			<div class="row">
-
+			
+      <div class="row">
 
 		    {# Affichage commande et adresse #}
-        {% for data in user %}
-          <div class="col-md-5">
-            <div class="card bg-light">
-              <div class="card-header">
-                <h4 class="card-title text-center">Récaputilatif 
-                  <br>
-                  <a href="#" class="reservationtable">
-                    <strong>{{data.fullname}}</strong>
-                  </a>
-                </h4>
-              </div>
-              <div class="card-body">
-                  {% for commande in fullcommande %}
-                    {% set food = commande.food %}
-                    <div class="row mt-3">
-                      <div class="mx-3">
-                        <img style="height: 50px; width:60px; display: block;" src="{{food.coverimage}}" alt="Image" class="img-fluid">
+        <div class="flex col-md-5">
+          {% for data in user %}
+            <div class="col">
+              <div class="card bg-light">
+                <div class="card-header">
+                  <h4 class="card-title text-center">Récaputilatif 
+                    <br>
+                    <a href="#" class="reservationtable">
+                      <strong>{{data.fullname}}</strong>
+                    </a>
+                  </h4>
+                </div>
+                <div class="card-body">
+                    {% for commande in fullcommande %}
+                      {% set food = commande.food %}
+                      <div class="row mt-3">
+                        <div class="mx-3">
+                          <img style="height: 50px; width:60px; display: block;" src="{{food.coverimage}}" alt="Image" class="img-fluid">
+                        </div>
+                        <div>
+                          {{food.menu|slice(0, 20)}}
+                          <strong>{{food.price}}
+                            &euro;</strong>
+                        </div>
                       </div>
-                      <div>
-                        {{food.menu|slice(0, 20)}}
-                        <strong>{{food.price}}
-                          &euro;</strong>
-                      </div>
-                    </div>
-                  {% endfor %}
+                    {% endfor %}
+                </div>
               </div>
-            </div>
-            
-            <div class="card bg-light mt-3">
-              <div class="card-header">
-                <h4 class="card-title text-center">Adresse
-                  <br>
-                  <a href="#" class="reservationtable">
-                    <strong>{{data.fullname}}</strong>
-                  </a>
-                </h4>
+              
+              <div class="card bg-light mt-3">
+                <div class="card-header">
+                  <h4 class="card-title text-center">Adresse
+                    <br>
+                    <a href="#" class="reservationtable">
+                      <strong>{{data.fullname}}</strong>
+                    </a>
+                  </h4>
+                </div>
+                <div class="card-body">
+                  <p>{{data.adress.adressepostale}} <br>{{data.adress.codepostale}} {{data.adress.ville}} <br>{{data.adress.region}}
+                </div>
               </div>
-              <div class="card-body">
-                <p>{{data.adress.adressepostale}} <br>{{data.adress.codepostale}} {{data.adress.ville}} <br>{{data.adress.region}}
-              </div>
-            </div>
 
-          </div>
-        {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
 
 				{# Affichage paiement stripe #}
-				<div class="col">
+				<div class="col-md-6 align-content-center">
 					<div class="card bg-light">
 						<div class="card-header">
 							<h4 class="card-title text-center">Paiement CB
@@ -89,6 +91,7 @@
 				</div>
 
 			</div>
+
 		</section>
 		<div class="form-group text-center">
 			<a href="{{path("foods_list")}}" class="btn btn-light mt-3">
@@ -115,15 +118,14 @@
     
     // A reference to Stripe.js initialized with a public API key.
     const stripe = Stripe(stripePublicKey);
+    
 
     var elements = stripe.elements();
 
     var card = elements.create('card');
-    //console.log(card);
 
     //On affiche stripe
     card.mount('#card-element');
-
 
     //Si il y a erreur de frappe, on l'affiche
     card.addEventListener('change', function(e){

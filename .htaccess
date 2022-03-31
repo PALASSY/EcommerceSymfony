@@ -1,0 +1,6 @@
+RewriteEngine on
+# creattion-webinfo. fr => à modifier
+RewriteCond %{HTTP_HOST} ^creation-webinfo.fr$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^creation-webinfo.fr$
+RewriteCond %{REQUEST_URI} !public/
+RewriteRule (.*) /public/$1 [L]

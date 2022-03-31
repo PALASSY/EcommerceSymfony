@@ -20,9 +20,9 @@ class FoodController extends AbstractController
 {
     /**
      * Page qui affiche tous les menus(plats/food...)
-     * @Route("/foods/{page<\d+>?1}", name="foods_list")
+     * @Route("/foods", name="foods_list")
      */
-    public function index(FoodRepository $foodRepo,Request $request,$page,Pagination $pagination): Response
+    public function index(FoodRepository $foodRepo,Request $request): Response
     {
         $data = new searchData();
 
@@ -30,23 +30,18 @@ class FoodController extends AbstractController
         $form->handleRequest($request);
         //dd($data);
 
-        //On va setter l'Entity et la page par défaut pour la pagination
-        $pagination->setEntityClass(Food::class)
-                   ->setCurrentPage($page)
-                   ->setLimit(9)
-                   ;
 
         if (!empty($foodRepo->findSearch($data))) {
             //Récupération des food par tri
             $foods = $foodRepo->findSearch($data);
-            //dd($foods);..
+            //dd($foods);
         }else{
             $foods = $foodRepo->findAll();
             $this->addFlash("danger","Votre recherche n'a pas aboutit");
         }
 
         return $this->render('food/index.html.twig', [
-            'pagination' => $pagination,
+            'foods' => $foods,
             'form' => $form->createView()
         ]);
     }
@@ -107,7 +102,7 @@ class FoodController extends AbstractController
      * @Security("is_granted('ROLE_USER') and user === food.getAuthor()", message="Vous n'avez pas l'authorisation de modifier ce menu")
      * @param Food $food
      * @param Request $request
-     * @param ObjectManager $manager
+     * @param ObjectManager $manager    
      * @return Response
      */
     public function edit(Food $food, Request $request, ObjectManager $manager)

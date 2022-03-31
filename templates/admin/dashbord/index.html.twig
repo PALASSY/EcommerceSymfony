@@ -1,0 +1,344 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Dashbord{% endblock %}
+
+{% block body %}
+    <main class="container-fluid mt-5 bg-light">
+
+        <div class="row justify-content-around align-items-center mb-5" style="">
+            <h1>Dashbord</h1>
+            <div>{{ "now"|date("d M Y à H:i", "Europe/Paris") }}</div>
+        </div>
+
+
+
+        <div class="row" style="">
+            
+            <div class=" row col  px-0 justify-content-end">
+
+            	<div class="col-md-6 card p-3 m-3">
+            		<div class="row">
+            			<div class="col-10 ">
+                            <div class="flex justify-content-between">
+                                <div class="pb-3 dashbordstyle">Clients</div>
+                                <div class="py-3 dashbordstylestat">{{stats.users}}</div>
+                                <div>
+                                    <span class="text-success me-2">
+                                        <i class="fas fa-long-arrow-alt-up"></i>
+                                        5,2%
+                                    </span>
+                                    <span class="text-nowrap ml-3">Depuis le mois dernier</span>
+                                </div>
+                            </div>
+            			</div>
+            			<div class="col-2">
+            				<div class="text-center dashbordstyle2">
+                                <i class="fas fa-user-friends" style="color:#fff"></i>
+                            </div>
+            			</div>
+            		</div>
+            	</div>
+                
+                <div class="col-md-5 card p-3 m-3">
+            		<div class="row">
+            			<div class="col-10 ">
+                            <div class="flex justify-content-between">
+                                <div class="pb-3 dashbordstyle">Commandes</div>
+                                <div class="py-3 dashbordstylestat">{{stats.commandes}}</div>
+                                <div>
+                                     <span class="text-danger me-2">
+                                        <i class="fas fa-long-arrow-alt-down"></i>
+                                        1,08%
+                                    </span>
+                                    <span class="text-nowrap ml-3">Depuis le mois dernier</span>
+                                </div>
+                            </div>
+            			</div>
+            			<div class="col-2">
+            				<div class="text-center dashbordstyle2 dashbordstyle2ex">
+                                <i class="fas fa-cart-arrow-down" style="color:#fff"></i>
+                            </div>
+            			</div>
+            		</div>
+            	</div>
+               <div class="col-md-6 card p-3 m-3">
+            		<div class="row">
+            			<div class="col-10 ">
+                            <div class="flex justify-content-between">
+                                <div class="pb-3 dashbordstyle">Revenus</div>
+                                <div class="py-3 dashbordstylestat">&euro; {{stats.commandes|number_format(2, ',', ',')}}</div>
+                                <div>
+                                     <span class="text-danger me-2">
+                                        <i class="fas fa-long-arrow-alt-down"></i>
+                                        7,00%
+                                    </span>
+                                    <span class="text-nowrap ml-3">Depuis le mois dernier</span>
+                                </div>
+                            </div>
+            			</div>
+            			<div class="col-2">
+            				<div class="text-center dashbordstyle2">
+                                <i class="fas fa-euro-sign" style="color:#fff"></i>
+                            </div>
+            			</div>
+            		</div>
+            	</div>
+                <div class="col-md-5 card  p-3 m-3">
+            		<div class="row">
+            			<div class="col-10 ">
+                            <div class="flex justify-content-between">
+                                <div class="pb-3 dashbordstyle">Croissance</div>
+                                <div class="py-3 dashbordstylestat">+{{stats.reservations|number_format(2, ',', ',')}}%</div>
+                                <div>
+                                     <span class="text-success me-2">
+                                        <i class="fas fa-long-arrow-alt-up"></i>
+                                        4,87%
+                                    </span>
+                                    <span class="text-nowrap ml-3">Depuis le mois dernier</span>
+                                </div>
+                            </div>
+            			</div>
+            			<div class="col-2">
+            				<div class="text-center dashbordstyle2 dashbordstyle2ex">
+                                <i class="fas fa-wave-square " style="color:#fff"></i>
+                            </div>
+            			</div>
+            		</div>
+            	</div>
+
+            </div>
+
+            <div class="col m-3 px-0">
+            	<div class="card bg-light text-center p-3"  style="height:100%">
+            		<div style="width:100%">
+                        <canvas id="myChart"></canvas>
+            		</div>
+            	</div>
+            </div>
+
+        </div>
+
+
+
+
+
+        <div class="row" style="height:450px">
+
+            <div class="col-md-8 card bg-light p-3 m-3">
+            	<div style="width:100%"> 
+                    <canvas id="myChart2" height="80px"></canvas>
+            	</div>
+            </div>
+
+            <div class="col m-3 px-0">
+            	<div style="width:100%">
+                    <canvas id="myChart3" height="80px" width="80px"></canvas>
+            	</div>
+            </div>
+
+        </div>
+
+    <br><br>
+
+        {# Affichages des meilleures et pires notes de commentaires #}
+        <section class="col-md-8 offset-md-2 mt-5">
+        	<div class="row">
+        	{# Meilleures notes #}
+        		<div class="col">
+        			<div class="card bg-light">
+        				<div class="card-header">
+        					<h4 class="card-title text-center"><i class="fas fa-arrow-up"></i> Meilleures notes </h4>
+        				</div>
+        				<div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <th>Menu</th>
+                                <th>Utilisateur</th>
+                                <th>Note</th>
+                            </thead>
+                            <tbody>
+                            {% for food in bestFoods %}      
+                                <tr>
+                                    <td>{{food.menu|slice(0, 20) ~ '...'}}</td>
+                                    <td>
+                                        <img src="{{food.avatar}}" alt="avatar de {{food.firstname}}{{food.lastname}}" class="avatar avatar-small">
+                                        <span>{{food.firstname}}{{food.lastname}}</span>
+                                    </td>
+                                    <td>{{food.note|number_format(1,',','')}}</td>
+                                </tr
+                            {% endfor %}
+                            </tbody>
+                        </table>
+        				</div>
+        			</div>
+        		</div>
+        		{# Pires notes #}
+                <div class="col">
+                	<div class="card bg-secondary">
+                		<div class="card-header">
+                			<h4 class="card-title text-center"><i class="fas fa-arrow-down"></i> Pires notes </h4>
+                		</div>
+                		<div class="card-body">
+                			<table class="table table-hover">
+                				<thead>
+                					<th>Menu</th>
+                					<th>Utilisateur</th>
+                					<th>Note</th>
+                				</thead>
+                				<tbody>
+                                {% for foods in worstFoods %}
+                					<tr>
+                						<td>{{foods.menu|slice(0, 20) ~ '...'}}</td>
+                                        <td>
+                                            <img src="{{foods.avatar}}" alt="avatar de {{foods.firstname}}{{foods.lastname}}" class="avatar avatar-small">
+                                            <span>{{foods.firstname}}{{foods.lastname}}</span>
+                                        </td>                					
+                                    	<td>{{foods.note|number_format(1,',','')}}</td>
+                					</tr>
+                                 {% endfor %}
+                				</tbody>
+                			</table>
+                		</div>
+                	</div>
+                </div>
+        </section>        
+    </main>
+    <br><br><br>
+{% endblock %}
+
+
+
+{% block javascripts %}
+<script>
+/**
+ * Diagramme en barres
+ */
+const ctx = document.getElementById('myChart').getContext('2d');
+const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ["Utilisateurs","Menus","Réservations","Commandes","Commentaires"],
+        datasets: [{
+            label: 'Evolution des données',
+            data: {{content|replace({'""': "-"})}},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        plugins: {
+          title: {
+              display: true,
+              text: 'Les données'
+          }
+      }
+    }
+});
+</script>
+
+
+
+
+<script>
+/**
+ * La courbe de e.c.c
+ */
+const labels2 = [
+  'Septembre',
+  'Octobre',
+  'Novembre',
+  'Décembre'
+];
+
+const data2 = {
+  labels: labels2,
+  datasets: [{
+    label: 'Evolution commande quadrimestre',
+    backgroundColor: 'rgb(255, 99, 132)',
+    borderColor: 'rgb(255, 99, 132)',
+    data: [0, 10, 5, 20, 79],
+  }]
+};
+
+const config = {
+  type: 'line',
+  data: data2,
+  options: {}
+};
+
+
+  const myChart2 = new Chart(
+    document.getElementById('myChart2'),
+    config
+  );
+</script>
+
+
+
+<script>
+/**
+*Doughnut
+*/
+
+const DATA_COUNT = 5;
+
+const NUMBER_CFG = {count: DATA_COUNT, min: 0, max: 100};
+
+const data3 = {
+  labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
+  datasets: [
+    {
+      label: 'Dataset 1',
+      data: Utils.numbers(NUMBER_CFG),
+      backgroundColor: Object.values(Utils.CHART_COLORS),
+    }
+  ]
+};
+
+const configdoughnut = {
+  type: 'doughnut',
+  data: data3,
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Chart.js Doughnut Chart'
+      }
+    }
+  },
+};
+
+
+ const myChart3 = new Chart(
+    document.getElementById('myChart3'),
+    configdoughnut
+  );
+
+
+</script>
+
+{% endblock %}

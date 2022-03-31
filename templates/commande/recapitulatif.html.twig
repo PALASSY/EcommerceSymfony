@@ -5,8 +5,8 @@
 
 {% block body %}
 
-<div class="container">
-  <h1 class="text-center mb-5">Récapitulatif de votre commande</h1>
+<div class="container px-5 py-5" style="background-color:rgba(243, 223, 186,0.6)">
+  <h1 class="text-center mb-5"><i class="fas fa-clipboard-list"></i> Récapitulatif de votre commande</h1>
 
   <div class="card">
     <div class="card-header">
@@ -43,7 +43,7 @@
           <p class="card-text" style="margin-top:-10px;">Signé par : {{commande.commandeur.firstname|upper}} {{commande.lieulivraison}}</p>
           <div class="row">
 
-            <div class="col-md-4"  style="background-color:red">
+            <div class="col-md-4"  style="border:1px solid black">
               <img src="" alt="">
             </div>
 

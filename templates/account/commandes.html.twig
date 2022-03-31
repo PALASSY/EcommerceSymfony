@@ -5,113 +5,114 @@
 {% endblock %}
 
 {% block body %}
-
-	<div class="container">
-		<h1 class="text-center mb-5">Mes
+	<div style="background-color:rgba(243, 223, 186,0.5)">
+		<h1 class="text-center py-5">Mes
 				{{app.user.commandeurMenu|length}}
 				commandes</h1>
-		
-		<div class="row">
-			<div class="col-md-10"  style="padding-left:0">
-				{% for resa in app.user.commandeurMenu %}
-				<div class="card mb-5">
 
-					<div class="card-header">
-						<div class="row">
+		<div class="container">
+			<div class="row mt-5">
+				<div class="col-md-10"  style="padding-left:0">
+					{% for resa in app.user.commandeurMenu %}
+					<div class="card mb-5">
 
-							<div class="col-md-7">
-								<div class="row">
-									<div class="col" style="padding:0">
-										<h1 class="h5">Commande</h1>
-										<div class="commandeeffectue">éffectuée le :</div>
-										<p class="commandedate">{{resa.datecommande|date("d F Y", "Europe/Paris")}}</p>
-									</div>
+						<div class="card-header">
+							<div class="row">
 
-									<div class="col text-center">
-										<h1 class="h5">Montant</h1><br>
-										<p>{{resa.prixtotal}}
-											&euro;</p>
-									</div>
+								<div class="col-md-7">
+									<div class="row">
+										<div class="col" style="padding:0">
+											<h1 class="h5">Commande</h1>
+											<div class="commandeeffectue">éffectuée le :</div>
+											<p class="commandedate">{{resa.datecommande|date("d F Y", "Europe/Paris")}}</p>
+										</div>
 
-									<div class="col text-center">
-										<h1 class="h5">Livraison à
-										</h1><br>
-										<a href="" onclick="info('{{resa.lieulivraison}}')" class="commandefullname">{{resa.commandeur.fullname}}</a>
+										<div class="col text-center">
+											<h1 class="h5">Montant</h1><br>
+											<p>{{resa.prixtotal}}
+												&euro;</p>
+										</div>
+
+										<div class="col text-center">
+											<h1 class="h5">Livraison à
+											</h1><br>
+											<a href="" onclick="info('{{resa.lieulivraison}}')" class="commandefullname">{{resa.commandeur.fullname}}</a>
+										</div>
 									</div>
 								</div>
-							</div>
 
-							<div class="col justify-content-end">
-								<h1 class="h5 mb-4 text-center">N° de commande</h1>
-								<p class="text-center">{{resa.id}}</p>
+								<div class="col justify-content-end">
+									<h1 class="h5 mb-4 text-center">N° de commande</h1>
+									<p class="text-center">{{resa.id}}</p>
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="card-body">
-						<div class="row">
+						<div class="card-body">
+							<div class="row">
 
-							<div class="col-md-8" style="padding:0">
-								<h5 class="card-title commandetitle">Livré le :
-									{{ resa.datelivraison|date('d F Y')}}</h5>
-								<p class="card-text commandesigne">Signé par :
-									{{resa.commandeur.firstname|upper}}
-									{{resa.lieulivraison}}</p>
-								<div class="row">
+								<div class="col-md-8" style="padding:0">
+									<h5 class="card-title commandetitle">Livré le :
+										{{ resa.datelivraison|date('d F Y')}}</h5>
+									<p class="card-text commandesigne">Signé par :
+										{{resa.commandeur.firstname|upper}}
+										{{resa.lieulivraison}}</p>
+									<div class="row">
 
-									<div class="col-md-2" style="background-color:red">
-										<img src="" alt="">
+										<div class="col-md-2" style="border: 1px solid black">
+											<img src="" alt="">
+										</div>
+
+										<div class="col" style="padding-right:0">
+											<p>Nombre de menu :
+												{{resa.nbrmenu}}</p>
+											<div class="row">
+												<div class="mr-3">
+													<a href="#" class="btn btn-warning commandebutton">
+														<i class="fas fa-shopping-basket"></i>
+														Acheter à nouveau</a>
+												</div>
+												<div>
+													<a href="{{path('commande_showOneCommande',{'id':resa.id})}}" class="btn btn-light commandebutton">Afficher votre commande</a>
+												</div>
+											</div>
+										</div>
+
 									</div>
+								</div>
 
-									<div class="col" style="padding-right:0">
-										<p>Nombre de menu :
-											{{resa.nbrmenu}}</p>
-										<div class="row">
-											<div class="mr-3">
-												<a href="#" class="btn btn-warning commandebutton">
-													<i class="fas fa-shopping-basket"></i>
-													Acheter à nouveau</a>
-											</div>
-											<div>
-												<a href="#" class="btn btn-light commandebutton">Afficher votre commande</a>
-											</div>
+								<div class="col">
+
+									<div class="d-flex flex-column align-items-end">
+										<div class="mb-4" commandebutton>
+											<button class="btn btn-light commandebutton">Suivre votre colis</button>
+										</div>
+										<div class="mb-2">
+											<button class="btn btn-warning commandebutton">Obtenir une assistance</button>
+										</div>
+										<div class="mb-2">
+											<button class="btn btn-light commandebutton">Retourner les articles</button>
+										</div>
+										<div class="mb-2">
+											<button class="btn btn-light commandebutton">Partager le reçu de l'article</button>
+										</div>
+										<div class="">
+											<button class="btn btn-light commandebutton">Commenter le produit</button>
 										</div>
 									</div>
 
 								</div>
-							</div>
-
-							<div class="col">
-
-								<div class="d-flex flex-column align-items-end">
-									<div class="mb-4" commandebutton>
-										<button class="btn btn-light commandebutton">Suivre votre colis</button>
-									</div>
-									<div class="mb-2">
-										<button class="btn btn-warning commandebutton">Obtenir une assistance</button>
-									</div>
-									<div class="mb-2">
-										<button class="btn btn-light commandebutton">Retourner les articles</button>
-									</div>
-									<div class="mb-2">
-										<button class="btn btn-light commandebutton">Partager le reçu de l'article</button>
-									</div>
-									<div class="">
-										<button class="btn btn-light commandebutton">Commenter le produit</button>
-									</div>
-								</div>
 
 							</div>
-
 						</div>
-					</div>
 
+					</div>
+					{% endfor %}
 				</div>
-				{% endfor %}
-			</div>
-			<div class="col-md-2" style="padding:0">
-				<div class="card">
-					<h4>Acheter à nouveau</h4>
+				<div class="col-md-2" style="padding:0">
+					<div class="card">
+						<h4 class="text-center">Acheter à nouveau</h4>
+				</div>
 			</div>
 		</div>
 	</div>

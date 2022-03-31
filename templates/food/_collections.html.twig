@@ -1,20 +1,20 @@
-{# Block pour rajouter une nouvelle image secondaire #}
+{# form (images) pour rajouter un sous-form #}
 {% block _food_images_widget %}
   <p>Ici vous pouvez ajouter des images supplementaires </p>
   {# Permet d'avoir une value à chaque nouvelle image #}
   <input type="hidden" id="widget-count" value="0">
   <button class="btn btn-info" type="button" id="addcollection-image">Ajouter une image</button>
   {{form_widget(form)}}
+  {# (form) représente le sous-formulaire #}
 {% endblock %}
 
-{# Block pour afficher les champs sans ID (row joue ce rôle) #}
+{# suppression l'ID d'un champ de sous-form (row indique un champ) #}
 {# entry indique qu'on parle d'une Collection #}
 {% block _food_images_entry_row %}
   {{form_widget(form)}}
 {% endblock %}
 
-
-{# Block pour supprimer une image secondaire créee #}
+{# personnalisation de sous-form #}
 {% block _food_images_entry_widget %}
   {# Chaque groupe de champs images sencondaires possède in ID(ce variable est la propriété de (form)) #}
   <div class="form-group mt-3" id="block_{{id}}">
@@ -35,7 +35,6 @@
     </div>
   </div>
 {% endblock %}
-
 
 {%- block textarea_widget -%}
     <textarea {{ block('widget_attributes') }} style="width:100%;height:180px">{{ value|striptags}}</textarea>

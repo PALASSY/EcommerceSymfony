@@ -20,14 +20,14 @@ class searchData
 
 
   /**
-   * Le prix minimum
+   * Recherche le prix minimum
    *
    * @var null|integer
    */
   public $min;
 
   /**
-   * Le prix max
+   * Recherche le prix max
    *
    * @var null|integer
    */

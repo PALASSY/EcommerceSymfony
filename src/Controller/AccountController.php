@@ -7,6 +7,8 @@ use App\Form\AccountType;
 use App\Entity\PasswordUpdate;
 use App\Form\RegistrationType;
 use App\Form\PasswordUpdateType;
+use App\Repository\CommandeRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\Form\FormError;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,7 +46,7 @@ class AccountController extends AbstractController
      */
     public function logout()
     {
-        //C'est le composant de Symfony qui s'occuper de la déconnexion (config/packages/security.yaml)
+        //C'est le composant de Symfony qui s'occupe de la déconnexion (config/packages/security.yaml)
     }
 
 

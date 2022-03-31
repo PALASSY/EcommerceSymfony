@@ -5,12 +5,11 @@
 {% endblock %}
 
 {% block body %}
-
-	<div class="container">
-		<h1 class="text-center mb-5">Mes
+	<div style="background-color:rgba(243, 223, 186,0.5)">
+		<h1 class="text-center py-5">Mes
 				{{app.user.reservations|length}}
 				réservations</h1>
-
+	<div class="container">
 		<div class="row">
 			<div class="col-md-10" style="padding-left:0">
 				{% for resa in app.user.reservations %}
@@ -100,11 +99,11 @@
 			</div>
 			<div class="col-md-2" style="padding:0">
 				<div class="card">
-					<h4>Réserver à nouveau</h4>
+					<h4 class="text-center">Le bon plan</h4>
 				</div>
 			</div>
 		</div>
-
+	</div>
 	{% endblock %}
 
 

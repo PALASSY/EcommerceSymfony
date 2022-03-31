@@ -81,6 +81,7 @@ class Table
             // on va créer un tableau contenant toutes les dates de réservation (convertit en seconde depuis 1-jan-70)
             $resultat = [$datereservee->getDate()->getTimeStamp()];
 
+
             //Reconvertir en date, array_map() permet d'appliquer une function sur les éléménts d'un tableau
             $days = array_map(function ($dayTimestamp) {
                 return new \DateTime(date('Y-m-d H:i:s', $dayTimestamp));

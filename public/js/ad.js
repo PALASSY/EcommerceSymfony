@@ -10,7 +10,7 @@ $('#addcollection-image').click(function () {
   //Le mettre dans un constante 
   const tmpl = $('#food_images').data('prototype').replace(/__name__/g, index);
 
-  //Injecter dans la data-prototype cette valeur 
+  //Ajouter un autre entry de sous-form
   $('#food_images').append(tmpl);
 
   //On va incrémenter ++ cette valeur 
@@ -27,7 +27,7 @@ $('#addcollection-image').click(function () {
 
 //Pour éviter le bug
 function updateCounter() {
-  //Récupérer la longeur le data- en valeur dans un constante
+  //compter le nombre entry de sous-form qui a été injecter dans #food_images
   const count = +$('#food_images div.form-group').length;
 
   //Ré-injecter cette valeur dans la valeur de <input> type=hidden 

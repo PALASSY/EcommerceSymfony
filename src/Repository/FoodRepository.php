@@ -27,9 +27,11 @@ class FoodRepository extends ServiceEntityRepository
      */
     public function findSearch(searchData $search): array
     {
+        //Récupère tous les produits de ce repository actuel avec un alias(f)
         $query = $this->createQueryBuilder('f');
+        //dd($query->getDql());
 
-        //faire une recherche une des 3 category
+        //faire une recherche une des 3 category( entrée, plat,dessert)
         if (!empty($search->q)) {
             $query = $query->andWhere('f.category LIKE :q')
                            ->setParameter('q',"%{$search->q}%")
@@ -48,10 +50,29 @@ class FoodRepository extends ServiceEntityRepository
             ->setParameter('max', $search->max);
         }
 
-
+        //dd($query->getQuery()); c'est un tableau d'Objet
         return $query->getQuery()->getResult();
     }
 
+
+    /**
+     * Rechercher les meilleurs menus
+     *
+     * @param [type] $limit
+     * @return Response
+     */
+    public function findBestFoods($limit)
+    {
+        return $this->createQueryBuilder('f')
+                    ->select('f as menu, AVG(c.rating) as note')
+                    ->join('f.comments','c')
+                    ->groupby('f')
+                    ->orderBy('note','DESC')
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->getResult()
+                    ;
+    }
 
 
 

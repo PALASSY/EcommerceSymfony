@@ -54,7 +54,7 @@
 .dataContainer{z-index: 10;}
 
 /* templates/inc/header.html.twig */
-.js-cartlink {
+.js-cartlink, .js-cartlink2 {
     padding: 2px;
     display: inline-block;
     width: 1.5em;
@@ -62,8 +62,8 @@
     text-align: center;
     border-radius: 50%;
     position: relative;
-    top: -0.8em;
-    left: -1em;
+    top: -0.4em;
+    left: -0.9em;
 }
 
 
@@ -197,3 +197,13 @@ a.btn,h1,p {
 
 
 #navbarSupportedContent a:hover{background-image: url('https://i.pinimg.com/originals/36/0e/c6/360ec6d097235cf7190c813d1cec871e.jpg');color: #FFEFEC;}
+
+
+
+/* Dashbord */
+.dashbordstyle{color: #B49C73 !important;}
+.dashbordstyle2{background-color:#B49C73; width:50%;border-radius:3px}
+.dashbordstyle2ex{background-color:#B49C73; width:70%;border-radius:3px}
+.dashbordstylestat{font-weight: 700; font-size: 1.5rem;color: #6C757D;}
+
+.text-nowrap{color: #98a6ad;opacity: 1; font-size: 0.8rem;}

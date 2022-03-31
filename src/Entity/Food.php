@@ -21,6 +21,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Food
 {
+
+    //validation contrainte (IsTrue)
+    protected $token;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -30,7 +34,8 @@ class Food
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=2,max=255,minMessage="votre titre du menu doit faire au moins 2 caractères", maxMessage="Votre titre du menu ne doit pas dépasser 255 caractères")
+     * @Assert\Length(min=2,max=255,minMessage="votre titre du menu doit faire au moins 2 caractères", 
+     * maxMessage="Votre titre du menu ne doit pas dépasser 255 caractères")
      */
     private $menu;
 
@@ -150,6 +155,9 @@ class Food
             return 0;
         }
     }
+
+
+
 
 
 

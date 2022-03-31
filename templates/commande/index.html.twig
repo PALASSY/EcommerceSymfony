@@ -3,19 +3,17 @@
 {% block title %}Commande-Shangrila{% endblock %}
 
 {% block body %}
-<div class="container my-5">
+<div class="container my-5 px-5" style="background-color:rgba(243, 223, 186,0.3)">
   {# Si il y de la commande, on l'affiche #}
   {% if commandelisible | length > 0 %}
 
     {% if commandelisible | length > 1 %}
-        <h1 class= "text-center">Mes commandes <i class="fas fa-concierge-bell"></i></h1>
+        <h1 class= "text-center py-4">Mes commandes <i class="fas fa-concierge-bell"></i></h1>
     {% else %}
-        <h1 class= "text-center">Ma commande <i class="fas fa-concierge-bell"></i></h1>
+        <h1 class= "text-center py-5">Ma commande <i class="fas fa-concierge-bell"></i></h1>
     {% endif %}
 
-        {{app.session|length}}
-        {{app.user|length}}
-      <table class="table text-center mt-5">
+      <table class="table text-center mt-3">
           <thead>
               <tr>
                   <th>N°</th>
@@ -57,14 +55,14 @@
               <td></td>
           </tfoot>
       </table>
-      <br><br>
-      <a class="btn btn-primary float-left ajout_panier" data-price="" data-url="" style="background-color:#fff;color:black" href="{{path('foods_list')}}">Continuer mes achats</a>
+      <br><br><br>
+      <a class="btn btn-primary float-left ajout_panier" data-price="" data-url="" style="background-color:#fff;color:black;border:1px solid rgb(135, 100, 70)" href="{{path('foods_list')}}"><i class="fas fa-shopping-bag"></i> Continuer mes achats</a>
 
-        {% if app.user %}
-            <a class="btn btn-primary float-right btn-lg ajout_panier" data-price="" data-url="" style="background-color:#B49C73;color:black" href="{{path('commande_showAdress')}}">Valider ma commande</a>
-        {% else %}
-            <a class="btn btn-primary float-right btn-lg ajout_panier" data-price="" data-url="" style="background-color:#B49C73;color:black" href="{{path('account_login')}}">Valider ma commande</a>
-        {% endif %}
+        {# {% if app.user %} #}
+            <a class="btn btn-primary float-right  ajout_panier" data-price="" data-url="" style="background-color:#B49C73;color:black" href="{{path('commande_showAdress')}}">Valider ma commande <i class="fas fa-check"></i></a>
+        {# {% else %}
+            <a class="btn btn-primary float-right  ajout_panier" data-price="" data-url="" style="background-color:#B49C73;color:black" href="{{path('account_login')}}">Valider ma commande <i class="fas fa-check"></i></a>
+        {% endif %} #}
 
         <br><br><br>
   {% else %}

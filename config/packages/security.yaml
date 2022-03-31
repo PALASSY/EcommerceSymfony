@@ -22,7 +22,7 @@ security:
             pattern: ^/admin
             provider: users_in_database
             form_login:
-                default_target_path: admin_foods_list
+                default_target_path: admin_dashbord
                 login_path: admin_account_login
                 check_path: admin_account_login
             logout:
@@ -51,3 +51,4 @@ security:
          - { path: ^/admin, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/admin, roles: ROLE_USER }
+         - { path: ^/commande/adress, roles: ROLE_USER }

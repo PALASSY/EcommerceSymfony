@@ -22,8 +22,8 @@
 			</div>
 
 			{% if app.user %}
-				<div class="email-div2 row">
-					<span>
+				<div class="email-div2 row align-items-lg-center">
+					<div>
 						<ul class="navbar-nav ml-auto">
 							<li class="nav-item dropdown" role="group" aria-label="dropdown">
 								<a href="#" class="nav-link dropdown-toggle" id="accountDropdownlink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -54,44 +54,54 @@
 								</div>
 							</li>
 						</ul>
-					</span>
-					<span class="ml-3"  style="margin-top: 2.1em">
+					</div>
+					<div class="panierconnecte ml-5">
+						<a href="{{path('commande_index')}}">
+							<i class="fa fa-shopping-cart"></i>
+							<span class="js-cartlink" data-url="{{path('panier')}}" ></span>
+						</a> 
+					</div>
+					<div class="">
 						<a href="{{path("account_logout")}}">
 							<i class="fas fa-sign-in-alt">
 								Se déconnecter
 							</i>
 						</a>
-					</span>
-					<span class="panierconnecte">
-						<a href="{{path('commande_index')}}">
-							<i class="fa fa-shopping-cart"></i>
-							<span class="js-cartlink" data-url="{{path('panier')}}" style="background-color:red;"></span>
-						</a> 
-					</span>
+					</div>
 				</div>
 			{% else %}
-				<div class="email-div2">
-					<span>
-						<a href="{{path("account_login")}}">
-							<i class="fas fa-sign-in-alt"></i>
-							Se connecter</a>
-					</span>
-					<span>
+				<div class="email-div2 row align-items-lg-center">
+					<div class="mr-3">
+						<ul class="navbar-nav ml-auto ">
+								<li class="nav-item dropdown" role="group" aria-label="dropdown">
+									<a href="#" class="nav-link dropdown-toggle" id="accountDropdownlink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fas fa-sign-in-alt"></i>
+										Se connecter</a>
+									{# Le lien #}
+									<div class="dropdown-menu dropdown-menu-right headerdropdown" arial-labelledby="accountDropdownLink">
+										<a class="nav-link text-center bg-success" href="{{ path('account_login')}}"><i class="fas fa-user-tag"></i> User</a>
+										<div class="dropdown-divider"></div>
+										<a href="{{path('admin_account_login')}}" class="nav-link text-center bg-primary"><i class="fas fa-user-cog"></i> Admin</a>
+									</div>
+								</li>
+						</ul>
+					</div>
+					<div class="mr-3">
 						<a href="{{path("account_register")}}">
 							<i class="fas fa-pen-square"></i>
 							S'inscrire</a>
-					</span>
-					<span>
+					</div>
+					<div class="mr-3">
 						<a href="#">
 							<i class="far fa-file-word"></i>
 							En</a>
-					</span>
-					<span class="paniernonconnecte">
+					</div>
+					<div class="paniernonconnecte">
 						<a href="{{path('commande_index')}}" >
 							<i class="fa fa-shopping-cart"></i>
-							<span class="js-cartlink" data-url="{{path('panier')}}" style="background-color:red;"></span>
+							<span class="js-cartlink" data-url="{{path('panier')}}" ></span>
 						</a>
-					</span>
+					</div>
 				</div>
 			{% endif %}
 		</div>

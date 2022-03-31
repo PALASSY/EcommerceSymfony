@@ -4,8 +4,8 @@
 
 {% block body %}
 
-	<div class="container mt-5 mb-5">
-		<h1 class="text-center">Page de profil</h1>
+	<div class="container mt-5 mb-5 py-5 px-5" style="background-color:rgba(243, 223, 186,0.5)">
+		<h1 class="text-center mb-5"><i class="fas fa-portrait"></i> Page de profil</h1>
 		<hr>
 		<div class="row">
 			<div class="col-3 mt-5">
@@ -20,7 +20,7 @@
 				</div>
 			</div>
 			<div class="col-9 my-5">
-				<h1>Le chef: {{user.fullname}}</h1>
+				<h1>Le chef: {{user.fullname|escape}}</h1>
 				{#{{ dump(app.user) }}#}
 				{#{{ dump(user) }}#}
 				{# Vérifier si l'utilisateur connecté est le propriétaire du page de profil #}

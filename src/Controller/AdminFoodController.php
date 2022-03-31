@@ -12,11 +12,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 class AdminFoodController extends AbstractController
 {
     /**
      * Page qui affiche tous les menus
      * @Route("/admin/foods/{page<\d+>?1}", name="admin_foods_list")
+     * @Security("is_granted('ROLE_ADMIN')", message="Vous n'avez pas l'authorisation d'accéder à cette page")
      *  @param [type] $page
      */
     public function index(FoodRepository $foodrepo,$page,Pagination $pagination): Response

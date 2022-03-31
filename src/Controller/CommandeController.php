@@ -129,7 +129,7 @@ class CommandeController extends AbstractController
     {
         $html = '';
         if (!empty($service->getFullCommande())) {
-            $html .= $service->getTotalnbrmenu();
+            $html .= '<span style="background-color:#B49C73" class="js-cartlink2">'.$service->getTotalnbrmenu().'</span>';
         }
         //dd($html);
         //echo $html;
@@ -148,7 +148,7 @@ class CommandeController extends AbstractController
     public function showAdress(CommandeService $service)
     {
         
-        if ($this->getUser()) {
+        // if ($this->getUser()) {
             $commandes = $service->getFullCommande();
             $user = $this->getUser();
             if (empty($commandes)) {
@@ -162,9 +162,9 @@ class CommandeController extends AbstractController
                     //dd($adress);
                     //dd($commandes);
             }
-        } else {
-            return $this->redirectToRoute('account_login');
-        }
+        // } else {
+        //     return $this->redirectToRoute('account_login');
+        // }
         return $this->render("commande/adress.html.twig", ['fullcommande' => $commandes, 'adress' => $adress,'total'=>$total,'nbrmenu'=>$nombremenu]);
     }
 
@@ -262,7 +262,7 @@ class CommandeController extends AbstractController
 
 
     /**
-     * Récupération d'une seule commane selon l'ID
+     * Récupération d'une seule commande selon l'ID
      * @Route("/commande/{id}", name="commande_showOneCommande")
      * @param [type] $id
      * @param Commande $commande

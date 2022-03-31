@@ -36,6 +36,7 @@ class CommandeService{
     {
      //On va récupérer la commande 
       $commande = $this->session->get('menu',[]);
+      //dd($commande);
 
       //dd($this->session);
 
@@ -155,7 +156,7 @@ class CommandeService{
           // Incrémenté la commande
           $commande[$id]++;
         }else {
-          $this->flash->add("danger","Vous avez atteint la quantité maximale de notre stock");
+          $this->flash->add("danger","Vous avez atteint la quantité maximale de notre stock N°" .$food->getId());
         }
       }else{
         //On rajoute le nbr de menu à 1
@@ -257,9 +258,14 @@ class CommandeService{
   public function mail($user,PaiementStripeService $stripeService,$commande)
   {
     $fullcommande = $this->getFullCommande();
+    
+    //A faire!!!!! fuction à part
+    //dd($fullcommande); Récupérer toutes les commandes et les enregistrer dans la BD sur la table (commandes_ligne)prochainement créée, relation ManyToOne avec Commande() et OneToOne avec Food(), il y aura également le nombre d'articles et le montant total
+
     $commandestripe = $this->stripe($user, $stripeService,$commande);
     $idCommande = $commandestripe->getId();
     $userid = $user->getId();
+    //dd($userid);
 
 
     //Create an instance; passing `true` enables exceptions
@@ -281,7 +287,7 @@ class CommandeService{
       $mail->setFrom('palassylucas@gmail.com', 'Shangrila');
       $mail->addAddress('formation31palassy@gmail.com', $user->getFullname());     //Add a recipient
       //$mail->addAddress('ellen@example.com');               //Name is optional
-      $mail->addReplyTo('palassylucas@gmail.com.com', 'Information-Shangrila');
+      $mail->addReplyTo('palassylucas@gmail.com', 'Information-Shangrila');
       //$mail->addCC('cc@example.com');      //Ajout copie
       //$mail->addBCC('bcc@example.com');   //Copie cachée
 
